@@ -10,7 +10,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "import-fixtures": "node scripts/import-fixtures.mjs",
-    "build-flags": "node scripts/build-flags.mjs"
+    "build-flags": "node scripts/build-flags.mjs",
+    "prebuild": "vitest run"
   },
   "dependencies": {
     "react": "^19.0.0",
