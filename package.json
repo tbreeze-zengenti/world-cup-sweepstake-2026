@@ -9,10 +9,10 @@
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
-    "import-fixtures": "node scripts/import-fixtures.mjs"
+    "import-fixtures": "node scripts/import-fixtures.mjs",
+    "build-flags": "node scripts/build-flags.mjs"
   },
   "dependencies": {
-    "flag-icons": "^7.2.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
@@ -22,6 +22,7 @@
     "@vitejs/plugin-react": "^4.3.4",
     "typescript": "~5.7.2",
     "vite": "^6.0.0",
-    "vitest": "^3.0.0"
+    "vitest": "^3.0.0",
+    "flag-icons": "^7.2.3"
   }
 }
