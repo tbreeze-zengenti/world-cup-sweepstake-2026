@@ -85,7 +85,7 @@ export function GroupsView({ data }: { data: TournamentData }) {
               {open && (
                 <ul className="match-list">
                   {groupMatches.map((m) => (
-                    <MatchRow key={m.id} match={m} teamBySlug={teamBySlug} />
+                    <MatchRow key={m.id} match={m} teamBySlug={teamBySlug} holders={holders} />
                   ))}
                 </ul>
               )}

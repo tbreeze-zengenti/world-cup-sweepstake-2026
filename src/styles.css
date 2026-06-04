@@ -197,6 +197,7 @@ body {
   border-top: 1px solid var(--line);
 }
 .match-row .match-home { text-align: right; }
+.match-holder { display: block; margin-left: 0; }
 .match-score { font-weight: 700; font-variant-numeric: tabular-nums; }
 .match-when { color: var(--text-dim); font-size: 0.78rem; text-align: center; }
 
