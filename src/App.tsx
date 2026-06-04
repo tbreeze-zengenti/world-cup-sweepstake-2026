@@ -1,30 +1,75 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useTournament } from './useTournament'
 import { GroupsView } from './components/GroupsView'
 import { KnockoutView } from './components/KnockoutView'
 import { PotsView } from './components/PotsView'
 import { PeopleView } from './components/PeopleView'
+import { applyTheme, isBuiltinTheme, loadCustomThemes, THEMES_CHANGED_EVENT, type CustomTheme } from './lib/themes'
 
 type View = 'groups' | 'knockout' | 'pots' | 'people'
-type Theme = 'light' | 'dark'
 
-const THEME_COLORS: Record<Theme, string> = { dark: '#0b1f3a', light: '#eef2f8' }
-
-function getInitialTheme(): Theme {
+function getInitialTheme(): string {
   const stored = localStorage.getItem('theme')
-  if (stored === 'light' || stored === 'dark') return stored
+  if (stored && (isBuiltinTheme(stored) || loadCustomThemes().some((t) => t.id === stored))) return stored
   return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
 }
 
 function useTheme() {
-  const [theme, setTheme] = useState<Theme>(getInitialTheme)
+  const [theme, setTheme] = useState(getInitialTheme)
+  const [customThemes, setCustomThemes] = useState<CustomTheme[]>(loadCustomThemes)
+
   useEffect(() => {
-    document.documentElement.dataset.theme = theme
-    localStorage.setItem('theme', theme)
-    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', THEME_COLORS[theme])
-  }, [theme])
-  const toggle = () => setTheme((t) => (t === 'dark' ? 'light' : 'dark'))
-  return { theme, toggle }
+    const refresh = () => setCustomThemes(loadCustomThemes())
+    window.addEventListener(THEMES_CHANGED_EVENT, refresh)
+    window.addEventListener('storage', refresh)
+    return () => {
+      window.removeEventListener(THEMES_CHANGED_EVENT, refresh)
+      window.removeEventListener('storage', refresh)
+    }
+  }, [])
+
+  useEffect(() => {
+    const applied = applyTheme(theme, customThemes)
+    if (applied !== theme) setTheme(applied) // selected custom theme was removed
+    else localStorage.setItem('theme', theme)
+  }, [theme, customThemes])
+
+  return { theme, setTheme, customThemes }
+}
+
+function ThemePicker({
+  theme,
+  setTheme,
+  customThemes,
+}: {
+  theme: string
+  setTheme: (id: string) => void
+  customThemes: CustomTheme[]
+}) {
+  if (customThemes.length === 0) {
+    const next = theme === 'dark' ? 'light' : 'dark'
+    return (
+      <button
+        className="theme-toggle"
+        onClick={() => setTheme(next)}
+        aria-label={`Switch to ${next} mode`}
+        title={`Switch to ${next} mode`}
+      >
+        {theme === 'dark' ? '☀️' : '🌙'}
+      </button>
+    )
+  }
+  return (
+    <select className="theme-select" value={theme} onChange={(e) => setTheme(e.target.value)} aria-label="Theme">
+      <option value="dark">🌙 Dark</option>
+      <option value="light">☀️ Light</option>
+      {customThemes.map((t) => (
+        <option key={t.id} value={t.id}>
+          {t.name}
+        </option>
+      ))}
+    </select>
+  )
 }
 
 const VIEWS: { id: View; label: string }[] = [
@@ -33,6 +78,32 @@ const VIEWS: { id: View; label: string }[] = [
   { id: 'pots', label: 'Pots' },
   { id: 'people', label: 'People' },
 ]
+
+function ViewTabs({ view, setView }: { view: View; setView: (v: View) => void }) {
+  const sentinelRef = useRef<HTMLDivElement>(null)
+  const [stuck, setStuck] = useState(false)
+
+  // the sentinel sits just above the sticky nav: once it scrolls out of the
+  // viewport the nav is pinned, and only then does it get a backdrop
+  useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => setStuck(!entry.isIntersecting))
+    if (sentinelRef.current) observer.observe(sentinelRef.current)
+    return () => observer.disconnect()
+  }, [])
+
+  return (
+    <>
+      <div ref={sentinelRef} className="tabs-sentinel" aria-hidden />
+      <nav className={stuck ? 'view-tabs is-stuck' : 'view-tabs'} aria-label="Section">
+        {VIEWS.map((v) => (
+          <button key={v.id} className={view === v.id ? 'active' : ''} onClick={() => setView(v.id)}>
+            {v.label}
+          </button>
+        ))}
+      </nav>
+    </>
+  )
+}
 
 const dateFmt = new Intl.DateTimeFormat(undefined, { day: 'numeric', month: 'long' })
 
@@ -60,7 +131,7 @@ function Countdown({ to }: { to: Date }) {
 export default function App() {
   const { data, error, retry } = useTournament()
   const [view, setView] = useState<View>('groups')
-  const { theme, toggle } = useTheme()
+  const { theme, setTheme, customThemes } = useTheme()
 
   if (error && !data) {
     return (
@@ -85,14 +156,7 @@ export default function App() {
   return (
     <div className="app">
       <header className="masthead">
-        <button
-          className="theme-toggle"
-          onClick={toggle}
-          aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-          title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-        >
-          {theme === 'dark' ? '☀️' : '🌙'}
-        </button>
+        <ThemePicker theme={theme} setTheme={setTheme} customThemes={customThemes} />
         <h1>
           <span className="masthead-kicker">World Cup 2026</span>
           Office Sweepstake
@@ -108,13 +172,7 @@ export default function App() {
         </p>
       </header>
 
-      <nav className="view-tabs" aria-label="Section">
-        {VIEWS.map((v) => (
-          <button key={v.id} className={view === v.id ? 'active' : ''} onClick={() => setView(v.id)}>
-            {v.label}
-          </button>
-        ))}
-      </nav>
+      <ViewTabs view={view} setView={setView} />
 
       <main>
         {view === 'groups' && <GroupsView data={data} />}

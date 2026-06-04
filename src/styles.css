@@ -43,19 +43,24 @@
 
 body {
   margin: 0;
-  background: var(--bg);
-  background-image: radial-gradient(1200px 500px at 50% -200px, var(--glow) 0%, var(--bg) 70%);
+  min-height: 100dvh;
+  background-color: var(--bg);
+  /* sized in % of the document so the glow bleeds smoothly down the whole page */
+  background-image: radial-gradient(140% 100% at 50% 0%, var(--glow) 0%, var(--bg) 100%);
+  background-repeat: no-repeat;
   color: var(--text);
   font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   line-height: 1.45;
   -webkit-font-smoothing: antialiased;
 }
 
-.app { max-width: 1280px; margin: 0 auto; padding: 0 0.75rem 3rem; }
+.app { max-width: 1280px; margin: 0 auto; }
+.app main { padding: 0 0.75rem; }
 
 /* --- masthead -------------------------------------------------------- */
 .masthead { text-align: center; padding: 1.5rem 0 0.5rem; position: relative; }
-.theme-toggle {
+.theme-toggle,
+.theme-select {
   position: absolute;
   top: 0.9rem;
   right: 0;
@@ -63,12 +68,21 @@ body {
   border: 1px solid var(--line);
   background: var(--bg-raised);
   color: var(--text);
-  width: 2.2rem;
   height: 2.2rem;
   border-radius: 999px;
-  font-size: 1rem;
   line-height: 1;
   cursor: pointer;
+}
+.theme-toggle {
+  width: 2.2rem;
+  font-size: 1rem;
+}
+.theme-select {
+  max-width: 10rem;
+  padding: 0 0.8rem;
+  font-size: 0.8rem;
+  font-family: inherit;
+  text-overflow: ellipsis;
 }
 .masthead h1 {
   margin: 0;
@@ -88,6 +102,7 @@ body {
 .freshness { color: var(--text-dim); font-size: 0.85rem; margin: 0.4rem 0 0; }
 
 /* --- tabs ------------------------------------------------------------ */
+.tabs-sentinel { height: 1px; margin-bottom: -1px; }
 .view-tabs {
   display: flex;
   gap: 0.4rem;
@@ -96,7 +111,14 @@ body {
   top: 0;
   z-index: 10;
   padding: 0.6rem 0;
-  background: linear-gradient(var(--bg) 80%, transparent);
+  background: transparent;
+  transition: background-color 0.2s;
+}
+/* translucent + blur only while pinned, so the page gradient bleeds through */
+.view-tabs.is-stuck {
+  background: color-mix(in srgb, var(--bg) 65%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 .view-tabs button,
 .round-tabs button {
@@ -159,6 +181,7 @@ body {
   box-shadow: 0 0 0 1px var(--flag-ring);
 }
 .team-name { margin-left: 0.35rem; }
+.team-name[data-team='ir-iran']:hover::after { content: ' 💥'; }
 .holder {
   margin-left: 0.4rem;
   color: var(--accent);
@@ -334,7 +357,7 @@ body {
   font-weight: 700;
   cursor: pointer;
 }
-.footer { text-align: center; color: var(--text-dim); font-size: 0.75rem; margin-top: 2rem; }
+.footer { text-align: center; color: var(--text-dim); font-size: 0.75rem; margin-top: 2rem; padding: 0 0.75rem 3rem; }
 .thirds-card { margin-top: 0.9rem; }
 .muted { opacity: 0.5; }
 
