@@ -1,0 +1,297 @@
+/* ---------------------------------------------------------------------
+   World Cup 2026 sweepstake — mobile-first, hand-rolled.
+   Palette: deep navy night-match sky, pitch green accent, gold trophies.
+--------------------------------------------------------------------- */
+:root {
+  --bg: #0b1f3a;
+  --bg-raised: #122a4c;
+  --bg-inset: #0e2342;
+  --line: #23406b;
+  --text: #e8eef7;
+  --text-dim: #93a7c4;
+  --accent: #35d07f;
+  --gold: #f4c542;
+  --danger: #ff6b6b;
+  --radius: 10px;
+  font-size: 15px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  background-image: radial-gradient(1200px 500px at 50% -200px, #16345f 0%, var(--bg) 70%);
+  color: var(--text);
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+}
+
+.app { max-width: 1280px; margin: 0 auto; padding: 0 0.75rem 3rem; }
+
+/* --- masthead -------------------------------------------------------- */
+.masthead { text-align: center; padding: 1.5rem 0 0.5rem; }
+.masthead h1 {
+  margin: 0;
+  font-size: 1.7rem;
+  letter-spacing: 0.02em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+.masthead-kicker {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.35em;
+  color: var(--accent);
+}
+.freshness { color: var(--text-dim); font-size: 0.85rem; margin: 0.4rem 0 0; }
+
+/* --- tabs ------------------------------------------------------------ */
+.view-tabs {
+  display: flex;
+  gap: 0.4rem;
+  justify-content: center;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  padding: 0.6rem 0;
+  background: linear-gradient(var(--bg) 80%, transparent);
+}
+.view-tabs button,
+.round-tabs button {
+  appearance: none;
+  border: 1px solid var(--line);
+  background: var(--bg-raised);
+  color: var(--text);
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+.view-tabs button.active,
+.round-tabs button.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #06281a;
+  font-weight: 700;
+}
+
+/* --- cards ------------------------------------------------------------ */
+.card {
+  background: var(--bg-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 0.9rem;
+  margin-bottom: 0.9rem;
+}
+.card h3 {
+  margin: 0 0 0.6rem;
+  font-size: 1.02rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+}
+.badge-final { background: var(--accent); color: #06281a; }
+.badge-provisional { background: #2c4a7c; color: var(--text-dim); }
+
+.rules-note { color: var(--text-dim); font-size: 0.8rem; margin: 0.2rem 0 0.6rem; }
+.warning { color: var(--gold); font-size: 0.85rem; }
+
+/* --- flags & labels --------------------------------------------------- */
+.flag {
+  display: inline-block;
+  width: 1.25em;
+  height: 0.94em;
+  border-radius: 2px;
+  background-size: cover;
+  vertical-align: -0.12em;
+  box-shadow: 0 0 0 1px rgb(255 255 255 / 12%);
+}
+.team-name { margin-left: 0.35rem; }
+.holder {
+  margin-left: 0.4rem;
+  color: var(--accent);
+  font-size: 0.78em;
+  white-space: nowrap;
+}
+
+/* --- standings tables -------------------------------------------------- */
+.group-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.9rem;
+}
+.standings {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.86rem;
+  font-variant-numeric: tabular-nums;
+}
+.standings th, .standings td {
+  text-align: center;
+  padding: 0.3rem 0.25rem;
+  border-top: 1px solid var(--line);
+  white-space: nowrap;
+}
+.standings thead th { border-top: 0; color: var(--text-dim); font-weight: 600; font-size: 0.72rem; }
+.standings .col-team { text-align: left; max-width: 0; width: 60%; overflow: hidden; text-overflow: ellipsis; }
+.standings .col-pts { font-weight: 700; }
+.row-through .col-team { box-shadow: inset 3px 0 0 var(--accent); }
+.row-out { opacity: 0.45; }
+.row-out .col-team { box-shadow: inset 3px 0 0 var(--danger); }
+.row-leading { background: rgb(244 197 66 / 10%); }
+.row-leading .col-team { box-shadow: inset 3px 0 0 var(--gold); }
+
+/* hide W/D/L/GF/GA on very narrow screens, keep P GD Pts */
+@media (max-width: 420px) {
+  .standings .col-wide { display: none; }
+}
+
+.link-btn {
+  appearance: none;
+  background: none;
+  border: 0;
+  color: var(--accent);
+  font-size: 0.82rem;
+  padding: 0.4rem 0;
+  cursor: pointer;
+}
+
+/* --- match rows -------------------------------------------------------- */
+.match-list { list-style: none; margin: 0.2rem 0 0; padding: 0; font-size: 0.85rem; }
+.match-row {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0.4rem;
+  align-items: center;
+  padding: 0.35rem 0;
+  border-top: 1px solid var(--line);
+}
+.match-row .match-home { text-align: right; }
+.match-score { font-weight: 700; font-variant-numeric: tabular-nums; }
+.match-when { color: var(--text-dim); font-size: 0.78rem; text-align: center; }
+
+/* --- knockout ----------------------------------------------------------- */
+.round-tabs {
+  display: flex;
+  gap: 0.4rem;
+  overflow-x: auto;
+  padding-bottom: 0.6rem;
+}
+.bracket { display: block; }
+.round { display: none; }
+.round.round-active { display: block; }
+.round h3 { margin: 0.3rem 0 0.6rem; font-size: 0.95rem; color: var(--text-dim); }
+
+.ko-match {
+  background: var(--bg-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 0.5rem 0.65rem;
+  margin-bottom: 0.6rem;
+}
+.ko-meta { color: var(--text-dim); font-size: 0.7rem; margin-bottom: 0.3rem; }
+.ko-side {
+  display: flex;
+  align-items: center;
+  gap: 0.1rem;
+  padding: 0.18rem 0;
+  font-size: 0.9rem;
+}
+.ko-side .ko-score { margin-left: auto; font-weight: 700; font-variant-numeric: tabular-nums; }
+.ko-winner { color: var(--text); }
+.ko-winner .team-name { font-weight: 700; }
+.ko-loser { opacity: 0.5; }
+.ko-tbd { color: var(--text-dim); font-style: italic; font-size: 0.84rem; }
+.third-place { margin-top: 1rem; opacity: 0.85; }
+
+/* desktop: all rounds side by side, vertically centred columns */
+@media (min-width: 900px) {
+  .round-tabs { display: none; }
+  .bracket {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(220px, 1fr));
+    gap: 0.8rem;
+    overflow-x: auto;
+  }
+  .round { display: flex; flex-direction: column; justify-content: space-around; }
+}
+
+/* --- pots ---------------------------------------------------------------- */
+.pot-money { color: var(--gold); font-weight: 700; margin-left: auto; }
+.pot-summary { font-size: 0.95rem; }
+.entrant-list { list-style: none; margin: 0; padding: 0; font-size: 0.88rem; }
+.entrant-list li {
+  display: flex;
+  align-items: center;
+  padding: 0.3rem 0;
+  border-top: 1px solid var(--line);
+}
+.entrant-list .fate { margin-left: auto; color: var(--text-dim); font-size: 0.8rem; text-align: right; }
+.fate-champion .fate, .fate-runner-up .fate { color: var(--gold); font-weight: 700; }
+.fate-eliminated { opacity: 0.55; }
+.fate-finalist .fate { color: var(--accent); }
+
+/* --- people ---------------------------------------------------------------- */
+.people-list { list-style: none; margin: 0; padding: 0; }
+.person-card h3 { margin-bottom: 0.3rem; }
+.person-team { padding: 0.45rem 0; border-top: 1px solid var(--line); }
+.person-team-head { display: flex; align-items: center; gap: 0.2rem; }
+.person-team-head .fate { margin-left: auto; font-size: 0.82rem; color: var(--text-dim); }
+.group-tag {
+  margin-left: 0.5rem;
+  font-size: 0.68rem;
+  color: var(--text-dim);
+  border: 1px solid var(--line);
+  padding: 0.05rem 0.4rem;
+  border-radius: 999px;
+}
+.person-team-pots {
+  display: flex;
+  gap: 1rem;
+  color: var(--text-dim);
+  font-size: 0.78rem;
+  margin-top: 0.2rem;
+}
+
+/* --- misc ------------------------------------------------------------------- */
+.app-state { text-align: center; padding: 4rem 1rem; color: var(--text-dim); }
+.app-state button {
+  margin-top: 0.8rem;
+  background: var(--accent);
+  color: #06281a;
+  border: 0;
+  border-radius: 999px;
+  padding: 0.5rem 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.footer { text-align: center; color: var(--text-dim); font-size: 0.75rem; margin-top: 2rem; }
+.thirds-card { margin-top: 0.9rem; }
+.muted { opacity: 0.5; }
+
+/* --- responsive grid steps ---------------------------------------------------- */
+@media (min-width: 640px) {
+  .group-grid { grid-template-columns: repeat(2, 1fr); }
+  .pots { display: grid; grid-template-columns: 1fr; gap: 0.9rem; }
+}
+@media (min-width: 1000px) {
+  .group-grid { grid-template-columns: repeat(3, 1fr); }
+  .people-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.9rem; }
+}
+@media (min-width: 1280px) {
+  .group-grid { grid-template-columns: repeat(4, 1fr); }
+}

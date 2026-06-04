@@ -1,7 +1,7 @@
 ---
 title: "feat: World Cup 2026 Sweepstake Tracker"
 type: feat
-status: active
+status: completed
 date: 2026-06-04
 ---
 
@@ -127,32 +127,32 @@ Researched and viable later, behind a `TournamentDataSource` interface (`StaticJ
 ## Acceptance Criteria
 
 **Data integrity**
-- [ ] CI test: 48 sweepstake entries ↔ 48 `teams.json` entries, bijective; any mismatch fails the build
-- [ ] CI test: `matches.json` has 104 matches, 6 per group × 12, valid slugs, resolvable knockout placeholders
-- [ ] `"Moomin :cat:"` renders verbatim; accented names render correctly end-to-end
+- [x] CI test: 48 sweepstake entries ↔ 48 `teams.json` entries, bijective; any mismatch fails the build
+- [x] CI test: `matches.json` has 104 matches, 6 per group × 12, valid slugs, resolvable knockout placeholders
+- [x] `"Moomin :cat:"` renders verbatim; accented names render correctly end-to-end
 
 **Group stage**
-- [ ] 12 groups render as a responsive grid; standings (P W D L GF GA GD Pts) computed correctly from finished matches (unit tests incl. tiebreaks)
-- [ ] Every team row shows flag + holder; usable at 360px without clipped numbers
-- [ ] Best-thirds table renders with exactly 8 marked as advancing once group stage completes
+- [x] 12 groups render as a responsive grid; standings (P W D L GF GA GD Pts) computed correctly from finished matches (unit tests incl. tiebreaks)
+- [x] Every team row shows flag + holder; usable at 360px without clipped numbers
+- [x] Best-thirds table renders with exactly 8 marked as advancing once group stage completes
 
 **Knockout**
-- [ ] Bracket R32→Final resolves from match results; shootout matches award the correct winner (unit test)
-- [ ] Mobile shows round tabs/accordion; desktop shows full bracket
-- [ ] Third-place match visible, marked non-determining for SW1
+- [x] Bracket R32→Final resolves from match results; shootout matches award the correct winner (unit test)
+- [x] Mobile shows round tabs/accordion; desktop shows full bracket
+- [x] Third-place match visible, marked non-determining for SW1
 
 **Pots**
-- [ ] SW1: every entrant exactly one status (alive/eliminated/finalist/champion/runner-up); £96/£48 shown only after final finishes
-- [ ] SW2: leaderboard from group-stage finished matches only; tiebreak most-conceded → fewest-scored → split, with split amounts displayed (unit tests for each branch)
-- [ ] SW3: 1×Y + 3×R (+4 second-yellow per D1) from group matches only; rules text + Provisional/Final badge displayed (unit tests)
-- [ ] People view groups two-team holders under one person with both teams' statuses
+- [x] SW1: every entrant exactly one status (alive/eliminated/finalist/champion/runner-up); £96/£48 shown only after final finishes
+- [x] SW2: leaderboard from group-stage finished matches only; tiebreak most-conceded → fewest-scored → split, with split amounts displayed (unit tests for each branch)
+- [x] SW3: 1×Y + 3×R (+4 second-yellow per D1) from group matches only; rules text + Provisional/Final badge displayed (unit tests)
+- [x] People view groups two-team holders under one person with both teams' statuses
 
 **States & deploy**
-- [ ] Pre-tournament state looks intentional (banner, zeroed tables, pot placeholders)
-- [ ] "Results updated to <date>" freshness line derived from data
-- [ ] Open tab auto-refreshes data every ~5 min (visible-tab only)
-- [ ] Deploys to Netlify from repo: `netlify.toml`, SPA redirect, all tests pass in CI
-- [ ] README documents the organiser's edit→commit→deploy workflow incl. card recording convention
+- [x] Pre-tournament state looks intentional (banner, zeroed tables, pot placeholders)
+- [x] "Results updated to <date>" freshness line derived from data
+- [x] Open tab auto-refreshes data every ~5 min (visible-tab only)
+- [x] Deploys to Netlify from repo: `netlify.toml`, SPA redirect, all tests pass in CI
+- [x] README documents the organiser's edit→commit→deploy workflow incl. card recording convention
 
 ## Success Metrics
 

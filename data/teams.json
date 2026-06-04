@@ -1,0 +1,290 @@
+[
+  {
+    "slug": "czechia",
+    "name": "Czechia",
+    "iso2": "cz",
+    "group": "A"
+  },
+  {
+    "slug": "mexico",
+    "name": "Mexico",
+    "iso2": "mx",
+    "group": "A"
+  },
+  {
+    "slug": "south-africa",
+    "name": "South Africa",
+    "iso2": "za",
+    "group": "A"
+  },
+  {
+    "slug": "south-korea",
+    "name": "South Korea",
+    "iso2": "kr",
+    "group": "A"
+  },
+  {
+    "slug": "bosnia-and-herzegovina",
+    "name": "Bosnia and Herzegovina",
+    "iso2": "ba",
+    "group": "B"
+  },
+  {
+    "slug": "canada",
+    "name": "Canada",
+    "iso2": "ca",
+    "group": "B"
+  },
+  {
+    "slug": "qatar",
+    "name": "Qatar",
+    "iso2": "qa",
+    "group": "B"
+  },
+  {
+    "slug": "switzerland",
+    "name": "Switzerland",
+    "iso2": "ch",
+    "group": "B"
+  },
+  {
+    "slug": "brazil",
+    "name": "Brazil",
+    "iso2": "br",
+    "group": "C"
+  },
+  {
+    "slug": "haiti",
+    "name": "Haiti",
+    "iso2": "ht",
+    "group": "C"
+  },
+  {
+    "slug": "morocco",
+    "name": "Morocco",
+    "iso2": "ma",
+    "group": "C"
+  },
+  {
+    "slug": "scotland",
+    "name": "Scotland",
+    "iso2": "gb-sct",
+    "group": "C"
+  },
+  {
+    "slug": "australia",
+    "name": "Australia",
+    "iso2": "au",
+    "group": "D"
+  },
+  {
+    "slug": "paraguay",
+    "name": "Paraguay",
+    "iso2": "py",
+    "group": "D"
+  },
+  {
+    "slug": "turkiye",
+    "name": "Türkiye",
+    "iso2": "tr",
+    "group": "D"
+  },
+  {
+    "slug": "usa",
+    "name": "USA",
+    "iso2": "us",
+    "group": "D"
+  },
+  {
+    "slug": "cote-divoire",
+    "name": "Côte d'Ivoire",
+    "iso2": "ci",
+    "group": "E"
+  },
+  {
+    "slug": "curacao",
+    "name": "Curaçao",
+    "iso2": "cw",
+    "group": "E"
+  },
+  {
+    "slug": "ecuador",
+    "name": "Ecuador",
+    "iso2": "ec",
+    "group": "E"
+  },
+  {
+    "slug": "germany",
+    "name": "Germany",
+    "iso2": "de",
+    "group": "E"
+  },
+  {
+    "slug": "japan",
+    "name": "Japan",
+    "iso2": "jp",
+    "group": "F"
+  },
+  {
+    "slug": "netherlands",
+    "name": "Netherlands",
+    "iso2": "nl",
+    "group": "F"
+  },
+  {
+    "slug": "sweden",
+    "name": "Sweden",
+    "iso2": "se",
+    "group": "F"
+  },
+  {
+    "slug": "tunisia",
+    "name": "Tunisia",
+    "iso2": "tn",
+    "group": "F"
+  },
+  {
+    "slug": "belgium",
+    "name": "Belgium",
+    "iso2": "be",
+    "group": "G"
+  },
+  {
+    "slug": "egypt",
+    "name": "Egypt",
+    "iso2": "eg",
+    "group": "G"
+  },
+  {
+    "slug": "ir-iran",
+    "name": "IR Iran",
+    "iso2": "ir",
+    "group": "G"
+  },
+  {
+    "slug": "new-zealand",
+    "name": "New Zealand",
+    "iso2": "nz",
+    "group": "G"
+  },
+  {
+    "slug": "cape-verde",
+    "name": "Cape Verde",
+    "iso2": "cv",
+    "group": "H"
+  },
+  {
+    "slug": "saudi-arabia",
+    "name": "Saudi Arabia",
+    "iso2": "sa",
+    "group": "H"
+  },
+  {
+    "slug": "spain",
+    "name": "Spain",
+    "iso2": "es",
+    "group": "H"
+  },
+  {
+    "slug": "uruguay",
+    "name": "Uruguay",
+    "iso2": "uy",
+    "group": "H"
+  },
+  {
+    "slug": "france",
+    "name": "France",
+    "iso2": "fr",
+    "group": "I"
+  },
+  {
+    "slug": "iraq",
+    "name": "Iraq",
+    "iso2": "iq",
+    "group": "I"
+  },
+  {
+    "slug": "norway",
+    "name": "Norway",
+    "iso2": "no",
+    "group": "I"
+  },
+  {
+    "slug": "senegal",
+    "name": "Senegal",
+    "iso2": "sn",
+    "group": "I"
+  },
+  {
+    "slug": "algeria",
+    "name": "Algeria",
+    "iso2": "dz",
+    "group": "J"
+  },
+  {
+    "slug": "argentina",
+    "name": "Argentina",
+    "iso2": "ar",
+    "group": "J"
+  },
+  {
+    "slug": "austria",
+    "name": "Austria",
+    "iso2": "at",
+    "group": "J"
+  },
+  {
+    "slug": "jordan",
+    "name": "Jordan",
+    "iso2": "jo",
+    "group": "J"
+  },
+  {
+    "slug": "colombia",
+    "name": "Colombia",
+    "iso2": "co",
+    "group": "K"
+  },
+  {
+    "slug": "congo-dr",
+    "name": "Congo DR",
+    "iso2": "cd",
+    "group": "K"
+  },
+  {
+    "slug": "portugal",
+    "name": "Portugal",
+    "iso2": "pt",
+    "group": "K"
+  },
+  {
+    "slug": "uzbekistan",
+    "name": "Uzbekistan",
+    "iso2": "uz",
+    "group": "K"
+  },
+  {
+    "slug": "croatia",
+    "name": "Croatia",
+    "iso2": "hr",
+    "group": "L"
+  },
+  {
+    "slug": "england",
+    "name": "England",
+    "iso2": "gb-eng",
+    "group": "L"
+  },
+  {
+    "slug": "ghana",
+    "name": "Ghana",
+    "iso2": "gh",
+    "group": "L"
+  },
+  {
+    "slug": "panama",
+    "name": "Panama",
+    "iso2": "pa",
+    "group": "L"
+  }
+]
