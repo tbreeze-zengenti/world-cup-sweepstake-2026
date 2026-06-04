@@ -4,6 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#0b1f3a" />
+    <script>
+      // set theme before first paint to avoid a flash of the wrong mode
+      document.documentElement.dataset.theme =
+        localStorage.getItem('theme') ||
+        (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark')
+    </script>
     <title>World Cup 2026 Sweepstake</title>
     <meta name="description" content="Zengenti World Cup 2026 sweepstake tracker — groups, knockout bracket and prize pots." />
   </head>
