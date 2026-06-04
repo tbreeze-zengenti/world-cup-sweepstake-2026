@@ -127,6 +127,20 @@ body {
   font-size: 0.78em;
   white-space: nowrap;
 }
+.team-stack {
+  display: inline-flex;
+  flex-direction: column;
+  max-width: calc(100% - 1.8em);
+  vertical-align: middle;
+}
+.flag:has(+ .team-stack) { vertical-align: middle; }
+.team-stack .team-name,
+.team-stack .holder {
+  margin-left: 0.35rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
 /* --- standings tables -------------------------------------------------- */
 .group-grid {
@@ -149,6 +163,8 @@ body {
 .standings thead th { border-top: 0; color: var(--text-dim); font-weight: 600; font-size: 0.72rem; }
 .standings .col-team { text-align: left; max-width: 0; width: 60%; overflow: hidden; text-overflow: ellipsis; }
 .standings .col-pts { font-weight: 700; }
+.standings .col-cards { color: var(--text-dim); }
+.standings .col-cards-leading { color: var(--gold); font-weight: 700; }
 .row-through .col-team { box-shadow: inset 3px 0 0 var(--accent); }
 .row-out { opacity: 0.45; }
 .row-out .col-team { box-shadow: inset 3px 0 0 var(--danger); }

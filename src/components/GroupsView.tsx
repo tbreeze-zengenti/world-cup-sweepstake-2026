@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import type { TournamentData } from '../lib/types'
 import { computeStandings } from '../lib/standings'
 import { rankThirdPlace } from '../lib/thirdPlace'
+import { rankDiscipline } from '../lib/sweepstake3'
 import { holdersByTeam } from '../lib/holders'
 import { Flag } from './Flag'
 import { MatchRow } from './MatchRow'
@@ -10,6 +11,8 @@ export function GroupsView({ data }: { data: TournamentData }) {
   const { teams, matches, sweepstake } = data
   const standings = useMemo(() => computeStandings(teams, matches), [teams, matches])
   const thirds = useMemo(() => rankThirdPlace(standings), [standings])
+  const discipline = useMemo(() => rankDiscipline(teams, matches), [teams, matches])
+  const cardsBySlug = useMemo(() => new Map(discipline.rows.map((r) => [r.slug, r])), [discipline])
   const holders = useMemo(() => holdersByTeam(sweepstake, teams), [sweepstake, teams])
   const teamBySlug = useMemo(() => new Map(teams.map((t) => [t.slug, t])), [teams])
   const [openFixtures, setOpenFixtures] = useState<string | null>(null)
@@ -40,18 +43,22 @@ export function GroupsView({ data }: { data: TournamentData }) {
                     <th className="col-wide">GA</th>
                     <th>GD</th>
                     <th>Pts</th>
+                    <th title="Pot 3 — card points (1 per yellow, 3 per red, 4 per second yellow)">🟨</th>
                   </tr>
                 </thead>
                 <tbody>
                   {g.rows.map((r, i) => {
                     const team = teamBySlug.get(r.slug)!
                     const out = g.complete && (i === 3 || (i === 2 && thirds.final && !thirds.rows.find((t) => t.slug === r.slug)?.qualifies))
+                    const cards = cardsBySlug.get(r.slug)
                     return (
                       <tr key={r.slug} className={out ? 'row-out' : i < 2 && g.complete ? 'row-through' : ''}>
                         <td className="col-team">
                           <Flag iso2={team.iso2} />
-                          <span className="team-name">{team.name}</span>
-                          <span className="holder">{holders.get(r.slug)?.name}</span>
+                          <span className="team-stack">
+                            <span className="team-name">{team.name}</span>
+                            <span className="holder">{holders.get(r.slug)?.name}</span>
+                          </span>
                         </td>
                         <td>{r.played}</td>
                         <td className="col-wide">{r.won}</td>
@@ -61,6 +68,12 @@ export function GroupsView({ data }: { data: TournamentData }) {
                         <td className="col-wide">{r.ga}</td>
                         <td>{r.gd > 0 ? `+${r.gd}` : r.gd}</td>
                         <td className="col-pts">{r.pts}</td>
+                        <td
+                          className={`col-cards${cards?.leading ? ' col-cards-leading' : ''}`}
+                          title={cards ? `${cards.yellow}🟨 ${cards.red}🟥 ${cards.secondYellow}🟨🟥` : undefined}
+                        >
+                          {cards?.points ?? 0}
+                        </td>
                       </tr>
                     )
                   })}
@@ -110,8 +123,10 @@ export function GroupsView({ data }: { data: TournamentData }) {
                     <td>{i + 1}</td>
                     <td className="col-team">
                       <Flag iso2={team.iso2} />
-                      <span className="team-name">{team.name}</span>
-                      <span className="holder">{holders.get(r.slug)?.name}</span>
+                      <span className="team-stack">
+                        <span className="team-name">{team.name}</span>
+                        <span className="holder">{holders.get(r.slug)?.name}</span>
+                      </span>
                     </td>
                     <td>{r.group}</td>
                     <td className="col-pts">{r.pts}</td>
