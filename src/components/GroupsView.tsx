@@ -56,7 +56,7 @@ export function GroupsView({ data }: { data: TournamentData }) {
                         <td className="col-team">
                           <Flag iso2={team.iso2} />
                           <span className="team-stack">
-                            <span className="team-name">{team.name}</span>
+                            <span className="team-name" data-team={team.slug}>{team.name}</span>
                             <span className="holder">{holders.get(r.slug)?.name}</span>
                           </span>
                         </td>
@@ -124,7 +124,7 @@ export function GroupsView({ data }: { data: TournamentData }) {
                     <td className="col-team">
                       <Flag iso2={team.iso2} />
                       <span className="team-stack">
-                        <span className="team-name">{team.name}</span>
+                        <span className="team-name" data-team={team.slug}>{team.name}</span>
                         <span className="holder">{holders.get(r.slug)?.name}</span>
                       </span>
                     </td>

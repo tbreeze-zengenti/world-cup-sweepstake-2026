@@ -47,7 +47,7 @@ export function PeopleView({ data }: { data: TournamentData }) {
                 <div key={s.entry.name} className={`person-team fate-${s.fate}`}>
                   <div className="person-team-head">
                     <Flag iso2={s.team.iso2} />
-                    <span className="team-name">{s.team.name}</span>
+                    <span className="team-name" data-team={s.team.slug}>{s.team.name}</span>
                     <span className="group-tag">Group {s.team.group}</span>
                     <span className="fate">
                       {FATE_SHORT[s.fate]}

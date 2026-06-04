@@ -19,7 +19,7 @@ export function MatchRow({
     const holder = holders?.get(slug)
     return team ? (
       <>
-        <Flag iso2={team.iso2} /> {team.name}
+        <Flag iso2={team.iso2} /> <span className="team-name" data-team={team.slug}>{team.name}</span>
         {holder && <span className="holder match-holder">{holder.name}</span>}
       </>
     ) : (

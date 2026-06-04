@@ -182,6 +182,22 @@ body {
 }
 .team-name { margin-left: 0.35rem; }
 .team-name[data-team='ir-iran']:hover::after { content: ' 💥'; }
+/* Easter egg: gif popover above the team name. No positioned ancestor, so the
+   absolutely-positioned box keeps its static position but escapes the
+   overflow: hidden ellipsis clipping on .team-stack / .col-team.
+   Gif via GIPHY: https://giphy.com/gifs/vzJacFx8j4kWdWLQjE */
+.team-name[data-team='ir-iran']:hover::before {
+  content: '';
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  transform: translateY(calc(-100% - 0.4rem));
+  background: url('./assets/iran.gif') center / cover no-repeat;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.45);
+  z-index: 40;
+  pointer-events: none;
+}
 .holder {
   margin-left: 0.4rem;
   color: var(--accent);

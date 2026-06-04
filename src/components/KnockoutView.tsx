@@ -35,7 +35,7 @@ export function KnockoutView({ data }: { data: TournamentData }) {
         {team ? (
           <>
             <Flag iso2={team.iso2} />
-            <span className="team-name">{team.name}</span>
+            <span className="team-name" data-team={team.slug}>{team.name}</span>
             <span className="holder">{holders.get(team.slug)?.name}</span>
           </>
         ) : (

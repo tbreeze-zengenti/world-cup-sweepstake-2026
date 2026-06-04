@@ -13,7 +13,7 @@ export function TeamLabel({
   return (
     <span className={`team-label${muted ? ' muted' : ''}`}>
       <Flag iso2={team.iso2} />
-      <span className="team-name">{team.name}</span>
+      <span className="team-name" data-team={team.slug}>{team.name}</span>
       {holder && <span className="holder">{holder.name}</span>}
     </span>
   )
