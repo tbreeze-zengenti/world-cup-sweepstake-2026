@@ -220,8 +220,8 @@ export default function App() {
         <div className="masthead-controls">
           <HighlightPicker data={data} selection={selection} setSelection={setSelection} />
           <AlertsPanel sweepstake={data.sweepstake} />
+          <ThemePicker theme={theme} setTheme={setTheme} customThemes={customThemes} />
         </div>
-        <ThemePicker theme={theme} setTheme={setTheme} customThemes={customThemes} />
         <h1>
           <span className="masthead-kicker">World Cup 2026</span>
           Office Sweepstake
