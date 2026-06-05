@@ -16,6 +16,8 @@ export const slugify = (name: string): string =>
  */
 const API_NAME_TO_SLUG: Record<string, string> = {
   'Bosnia & Herzegovina': 'bosnia-and-herzegovina',
+  'Bosnia-Herzegovina': 'bosnia-and-herzegovina', // football-data.org spelling
+  'Bosnia-H.': 'bosnia-and-herzegovina',
   'Cape Verde Islands': 'cape-verde',
   'Czech Republic': 'czechia',
   'DR Congo': 'congo-dr',
