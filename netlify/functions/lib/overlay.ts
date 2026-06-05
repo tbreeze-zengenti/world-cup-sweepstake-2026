@@ -1,8 +1,9 @@
 import type { Match } from '../../../src/lib/types'
 
 /**
- * Shape of a single fixture in an API-Football v3 /fixtures response —
- * only the fields we consume. https://www.api-football.com/documentation-v3
+ * Internal normalised fixture shape consumed by matching.ts/transform.ts
+ * (modelled on API-Football v3); provider responses are adapted into it —
+ * see footballData.ts.
  */
 export interface ApiFixture {
   fixture: {

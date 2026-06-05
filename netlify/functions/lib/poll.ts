@@ -1,12 +1,14 @@
 import type { Match } from '../../../src/lib/types'
+import { toApiFixture, type FdMatch } from './footballData'
 import { matchFixtures } from './matching'
 import { fixtureToOverlay, mapStatus } from './transform'
-import type { ApiFixture, MatchOverlay, OverlayBlob } from './overlay'
+import type { MatchOverlay, OverlayBlob } from './overlay'
 
 /** Kickoff → kickoff + 3.5h covers half-time, extra time and a shootout. */
 const WINDOW_MS = 3.5 * 60 * 60 * 1000
 
-export const API_URL = 'https://v3.football.api-sports.io/fixtures?league=1&season=2026'
+/** All World Cup matches of the current season in one request. */
+export const API_URL = 'https://api.football-data.org/v4/competitions/WC/matches'
 
 /** True while any match could be in play — the gate for API requests. */
 export const inActiveWindow = (matches: Match[], now: number): boolean =>
@@ -45,28 +47,25 @@ export async function runPoll({
   apiUrl?: string
 }): Promise<PollResult> {
   if (!inActiveWindow(matches, now)) return { note: 'no active match window' }
-  if (!apiKey) throw new Error('API_FOOTBALL_KEY is not set')
+  if (!apiKey) throw new Error('FOOTBALL_DATA_TOKEN is not set')
 
-  const res = await fetchFn(apiUrl, { headers: { 'x-apisports-key': apiKey } })
+  const res = await fetchFn(apiUrl, { headers: { 'X-Auth-Token': apiKey } })
   log(
-    `api-football ${res.status}; requests remaining today: ` +
-      `${res.headers.get('x-ratelimit-requests-remaining')}, this minute: ` +
-      `${res.headers.get('X-RateLimit-Remaining')}`,
+    `football-data.org ${res.status}; requests available this minute: ` +
+      `${res.headers.get('X-Requests-Available-Minute')}`,
   )
   if (!res.ok) return { note: `API error ${res.status}; keeping previous overlay` }
 
-  const body = (await res.json()) as { errors?: object; response?: ApiFixture[] }
-  if (body.errors && Object.keys(body.errors).length > 0) {
-    return { note: `API reported errors: ${JSON.stringify(body.errors)}` }
-  }
-  if (!Array.isArray(body.response)) return { note: 'malformed API response; keeping previous overlay' }
+  const body = (await res.json()) as { matches?: FdMatch[] }
+  if (!Array.isArray(body.matches)) return { note: 'malformed API response; keeping previous overlay' }
 
+  const fixtures = body.matches.map((m) => toApiFixture(m, validSlugs))
   const byId = new Map(matches.map((m) => [m.id, m]))
-  const fixtureMap = matchFixtures(body.response, matches, validSlugs, prior?.fixtureMap ?? {}, log)
+  const fixtureMap = matchFixtures(fixtures, matches, validSlugs, prior?.fixtureMap ?? {}, log)
   const overlays: Record<string, MatchOverlay> = { ...prior?.overlays }
 
   let updated = 0
-  for (const fx of body.response) {
+  for (const fx of fixtures) {
     const id = fixtureMap[String(fx.fixture.id)]
     if (!id) {
       // Only matters once a fixture has data we'd be dropping — the signal
@@ -87,6 +86,6 @@ export async function runPoll({
 
   return {
     blob: { updatedAt: new Date(now).toISOString(), fixtureMap, overlays },
-    note: `updated ${updated} of ${body.response.length} fixtures`,
+    note: `updated ${updated} of ${fixtures.length} fixtures`,
   }
 }

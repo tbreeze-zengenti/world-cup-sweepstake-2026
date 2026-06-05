@@ -1,4 +1,5 @@
 // Test fixture builders — used by *.test.ts only.
+import type { FdMatch } from './footballData'
 import type { ApiFixture } from './overlay'
 
 let seq = 1000
@@ -29,3 +30,33 @@ export const apiFixture = (over: {
       : { home: null, away: null },
   },
 })
+
+export const fdMatch = (over: {
+  id?: number
+  kickoff?: string
+  status?: string
+  home: string
+  away: string
+  duration?: string
+  fullTime?: [number, number]
+  regularTime?: [number, number]
+  extraTime?: [number, number]
+  penalties?: [number, number]
+}): FdMatch => {
+  const pair = (p?: [number, number]) =>
+    p ? { home: p[0], away: p[1] } : { home: null, away: null }
+  return {
+    id: over.id ?? ++seq,
+    utcDate: over.kickoff ?? '2026-06-11T19:00:00Z',
+    status: over.status ?? 'TIMED',
+    homeTeam: { name: over.home, shortName: over.home },
+    awayTeam: { name: over.away, shortName: over.away },
+    score: {
+      duration: over.duration ?? 'REGULAR',
+      fullTime: pair(over.fullTime),
+      ...(over.regularTime && { regularTime: pair(over.regularTime) }),
+      ...(over.extraTime && { extraTime: pair(over.extraTime) }),
+      ...(over.penalties && { penalties: pair(over.penalties) }),
+    },
+  }
+}

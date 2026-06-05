@@ -1,9 +1,10 @@
 /**
  * Scheduled every 15 minutes. Exits instantly outside match windows (no API
- * request, no blob access); during a window it fetches all World Cup fixtures
- * from API-Football in one request, transforms them to our schema and stores
- * the result as an overlay blob that the matches function merges at serve
- * time. data/matches.json itself is never touched — it remains the fallback.
+ * request, no blob access); during a window it fetches all World Cup matches
+ * from football-data.org in one request, transforms them to our schema and
+ * stores the result as an overlay blob that the matches function merges at
+ * serve time. data/matches.json itself is never touched — it remains the
+ * fallback.
  */
 import { getStore } from '@netlify/blobs'
 import type { Config } from '@netlify/functions'
@@ -27,7 +28,7 @@ export default async () => {
 
   const result = await runPoll({
     fetchFn: fetch,
-    apiKey: process.env.API_FOOTBALL_KEY,
+    apiKey: process.env.FOOTBALL_DATA_TOKEN,
     now,
     matches,
     validSlugs: new Set(teams.map((t) => t.slug)),

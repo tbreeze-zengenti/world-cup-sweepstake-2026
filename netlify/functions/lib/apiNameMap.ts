@@ -9,9 +9,10 @@ export const slugify = (name: string): string =>
     .replace(/^-|-$/g, '')
 
 /**
- * API-Football team name → our slug, for names where slugify alone is wrong.
- * Speculative until calibrated against a real response — the poller logs any
- * name that fails to resolve, so missing aliases surface on first match day.
+ * Provider team name → our slug, for names where slugify alone is wrong.
+ * Covers football-data.org spellings plus common variants; calibrated
+ * against real responses — the poller logs any name that fails to resolve,
+ * so missing aliases surface before/on match day.
  */
 const API_NAME_TO_SLUG: Record<string, string> = {
   'Bosnia & Herzegovina': 'bosnia-and-herzegovina',
