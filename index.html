@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#0b1f3a" />
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text x=%2250%22 y=%2255%22 font-size=%2280%22 text-anchor=%22middle%22 dominant-baseline=%22central%22>🏆</text></svg>" />
+    <!-- PWA manifest — required for iOS "Add to Home Screen", which is a
+         prerequisite for Web Push on iOS (16.4+) -->
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+    <meta name="apple-mobile-web-app-title" content="Sweepstake" />
     <script>
       // set theme before first paint to avoid a flash of the wrong mode
       ;(function () {

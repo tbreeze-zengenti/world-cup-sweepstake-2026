@@ -1,5 +1,5 @@
 /**
- * Scheduled every 15 minutes. Exits instantly outside match windows (no API
+ * Scheduled every 5 minutes. Exits instantly outside match windows (no API
  * request, no blob access); during a window it fetches all World Cup matches
  * from football-data.org in one request, transforms them to our schema and
  * stores the result as an overlay blob that the matches function merges at
@@ -39,4 +39,4 @@ export default async () => {
   console.log(result.note)
 }
 
-export const config: Config = { schedule: '*/15 * * * *' }
+export const config: Config = { schedule: '*/5 * * * *' }
