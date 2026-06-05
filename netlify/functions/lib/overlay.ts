@@ -32,13 +32,30 @@ export interface MatchOverlay {
   away?: string
 }
 
-/** Value stored in the Netlify Blob (store "match-data", key "overlay"). */
+/** Push notification events derived from status transitions. */
+export type MatchEvent = 'started' | 'ended'
+
+/**
+ * Value stored in the Netlify Blob (store "match-data", key "overlay").
+ *
+ * Invariant: mergeMatches reads fields by name and never spreads the whole
+ * blob into the /matches.json response — that is what keeps `notified` (and
+ * any future bookkeeping) out of the public payload. Don't change that to a
+ * spread.
+ */
 export interface OverlayBlob {
   updatedAt: string
   /** API fixture id → match id ("m42"); sticky once a binding is learned. */
   fixtureMap: Record<string, string>
   /** match id → overlay */
   overlays: Record<string, MatchOverlay>
+  /**
+   * Push dedupe markers: match id → event → ISO timestamp of the send claim.
+   * Monotonic and merge-only — committed via compare-and-swap *before*
+   * sending (at-most-once), never cleared during the tournament. Bounded:
+   * ≤104 matches × 2 events ≈ a few KB.
+   */
+  notified?: Record<string, Partial<Record<MatchEvent, string>>>
 }
 
 export const BLOB_STORE = 'match-data'

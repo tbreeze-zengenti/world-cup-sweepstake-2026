@@ -1,22 +1,21 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "useDefineForClassFields": true,
-    "lib": ["ES2024", "DOM", "DOM.Iterable"],
+    "lib": ["ES2022", "WebWorker"],
     "module": "ESNext",
+    "allowJs": true,
+    "checkJs": true,
     "skipLibCheck": true,
     "moduleResolution": "bundler",
-    "resolveJsonModule": true,
     "isolatedModules": true,
     "moduleDetection": "force",
     "noEmit": true,
-    "jsx": "react-jsx",
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo"
+    "types": [],
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.sw.tsbuildinfo"
   },
-  "include": ["src", "data"],
-  "exclude": ["data/sw.js"]
+  "include": ["data/sw.js"]
 }

@@ -63,6 +63,18 @@ describe('mergeMatches', () => {
     })
   })
 
+  it('ignores push bookkeeping (notified markers never reach /matches.json)', () => {
+    const m = match({ id: 'm1', home: 'mexico', away: 'south-africa' })
+    const withMarkers: OverlayBlob = {
+      ...blob({ m1: { status: 'live' } }),
+      notified: { m1: { started: '2026-06-11T19:05:00Z' } },
+    }
+    expect(mergeMatches([m], withMarkers)).toEqual(
+      mergeMatches([m], blob({ m1: { status: 'live' } })),
+    )
+    expect(Object.keys(mergeMatches([m], withMarkers)[0])).not.toContain('notified')
+  })
+
   it('keeps a manually entered score when the overlay has none yet', () => {
     const m = match({ id: 'm3', home: 'mexico', away: 'south-africa', score: { home: 2, away: 2 } })
     const [merged] = mergeMatches([m], blob({ m3: { status: 'live' } }))
