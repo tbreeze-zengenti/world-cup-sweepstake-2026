@@ -26,6 +26,7 @@ describe('isAllowedEndpoint', () => {
     'https://updates.push.services.mozilla.com/wpush/v2/xyz',
     'https://db5p.notify.windows.com/w/?token=abc',
     'https://web.push.apple.com/QOj1234',
+    'https://jmt17.google.com/fcm/send/xyz', // unbranded Chromium
   ])('accepts real push services: %s', (url) => {
     expect(isAllowedEndpoint(url)).toBe(true)
   })

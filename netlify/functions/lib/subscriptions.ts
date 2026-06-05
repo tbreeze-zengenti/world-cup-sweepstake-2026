@@ -34,6 +34,7 @@ export const endpointKey = (endpoint: string): string =>
  */
 const ALLOWED_HOST_SUFFIXES = [
   'googleapis.com', // Chrome/FCM
+  'google.com', // unbranded Chromium builds register via e.g. jmt17.google.com
   'push.services.mozilla.com', // Firefox
   'notify.windows.com', // Edge/WNS
   'push.apple.com', // Safari
