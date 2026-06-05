@@ -634,6 +634,14 @@ body {
   opacity: 0.5;
 }
 
+/* --- leaderboards -------------------------------------------------------- */
+.leaderboards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.9rem;
+  align-items: start;
+}
+
 /* --- responsive grid steps ---------------------------------------------------- */
 @media (min-width: 640px) {
   .group-grid {
@@ -653,6 +661,9 @@ body {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 0.9rem;
+  }
+  .leaderboards {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 

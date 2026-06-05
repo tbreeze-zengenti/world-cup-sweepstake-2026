@@ -5,12 +5,13 @@ import { AlertsPanel } from './components/AlertsPanel'
 import { GroupsView } from './components/GroupsView'
 import { KnockoutView } from './components/KnockoutView'
 import { PotsView } from './components/PotsView'
+import { LeaderboardView } from './components/LeaderboardView'
 import { PeopleView } from './components/PeopleView'
 import { applyTheme, isBuiltinTheme, loadCustomThemes, THEMES_CHANGED_EVENT, type CustomTheme } from './lib/themes'
 import { highlightSlugs, loadSelection, personOptions, saveSelection, type Selection } from './lib/highlight'
 import { HighlightProvider } from './HighlightContext'
 
-type View = 'groups' | 'knockout' | 'pots' | 'people'
+type View = 'groups' | 'knockout' | 'pots' | 'leaderboard' | 'people'
 
 function getInitialTheme(): string {
   const stored = localStorage.getItem('theme')
@@ -132,6 +133,7 @@ const VIEWS: { id: View; label: string }[] = [
   { id: 'groups', label: 'Groups' },
   { id: 'knockout', label: 'Knockout' },
   { id: 'pots', label: 'Pots' },
+  { id: 'leaderboard', label: 'Leaderboard' },
   { id: 'people', label: 'People' },
 ]
 
@@ -244,6 +246,7 @@ export default function App() {
           {view === 'groups' && <GroupsView data={data} />}
           {view === 'knockout' && <KnockoutView data={data} />}
           {view === 'pots' && <PotsView data={data} />}
+          {view === 'leaderboard' && <LeaderboardView data={data} />}
           {view === 'people' && <PeopleView data={data} />}
         </main>
       </HighlightProvider>
