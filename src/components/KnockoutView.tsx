@@ -25,6 +25,30 @@ export function KnockoutView({ data }: { data: TournamentData }) {
 
   const third = matches.find((m) => m.stage === 'third')
 
+  /** Bracket position of each knockout match within its round, derived by
+   *  walking "W##" refs back from the final so paired matches sit adjacent
+   *  on desktop (matches stay in match-number order in the DOM for mobile). */
+  const bracketPos = useMemo(() => {
+    const byId = new Map(matches.map((m) => [m.id, m]))
+    const pos = new Map<string, number>()
+    let round = matches.filter((m) => m.stage === 'final')
+    round.forEach((m, i) => pos.set(m.id, i))
+    for (let i = ROUNDS.length - 2; i >= 0; i--) {
+      const stage = ROUNDS[i].stage
+      const inStage = matches.filter((m) => m.stage === stage)
+      const feeders = round
+        .flatMap((m) => [m.home, m.away])
+        .map((side) => {
+          const ref = /^W(\d+)$/.exec(side)
+          return ref ? byId.get(`m${Number(ref[1])}`) : undefined
+        })
+        .filter((m): m is Match => !!m && m.stage === stage)
+      round = feeders.length === inStage.length ? feeders : inStage.sort((a, b) => num(a) - num(b))
+      round.forEach((m, j) => pos.set(m.id, j))
+    }
+    return pos
+  }, [matches])
+
   const renderSide = (m: Match, raw: 'home' | 'away') => {
     const side = resolveSide(m[raw], ctx)
     const team = side.slug ? teamBySlug.get(side.slug) : undefined
@@ -75,13 +99,28 @@ export function KnockoutView({ data }: { data: TournamentData }) {
         ))}
       </nav>
       <div className="bracket">
+        <div className="bracket-headers">
+          {ROUNDS.map((r) => (
+            <h3 key={r.stage}>{r.title}</h3>
+          ))}
+        </div>
         {ROUNDS.map((r) => (
           <div key={r.stage} className={`round${activeRound === r.stage ? ' round-active' : ''}`}>
-            <h3>{r.title}</h3>
             {matches
               .filter((m) => m.stage === r.stage)
               .sort((a, b) => num(a) - num(b))
-              .map(renderMatch)}
+              .map((m) => {
+                const p = bracketPos.get(m.id) ?? 0
+                return (
+                  <div
+                    key={m.id}
+                    className={`ko-slot ${p % 2 === 0 ? 'ko-slot-top' : 'ko-slot-bottom'}`}
+                    style={{ order: p }}
+                  >
+                    {renderMatch(m)}
+                  </div>
+                )
+              })}
             {r.stage === 'final' && third && (
               <div className="third-place">{renderMatch(third)}</div>
             )}

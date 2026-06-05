@@ -167,6 +167,7 @@ body {
 }
 .view-tabs {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.4rem;
   justify-content: center;
   position: sticky;
@@ -453,16 +454,14 @@ body {
 .bracket {
   display: block;
 }
+.bracket-headers {
+  display: none;
+}
 .round {
   display: none;
 }
 .round.round-active {
   display: block;
-}
-.round h3 {
-  margin: 0.3rem 0 0.6rem;
-  font-size: 0.95rem;
-  color: var(--text-dim);
 }
 
 .ko-match {
@@ -508,7 +507,8 @@ body {
   opacity: 0.85;
 }
 
-/* desktop: all rounds side by side, vertically centred columns */
+/* desktop: column titles across the top, rounds side by side, connector
+   lines running through the column gaps from each pair to its next match */
 @media (min-width: 900px) {
   .round-tabs {
     display: none;
@@ -516,13 +516,69 @@ body {
   .bracket {
     display: grid;
     grid-template-columns: repeat(5, minmax(220px, 1fr));
-    gap: 0.8rem;
+    column-gap: 1.6rem;
     overflow-x: auto;
   }
-  .round {
+  .bracket-headers {
+    display: contents;
+  }
+  .bracket-headers h3 {
+    margin: 0.3rem 0 0.6rem;
+    font-size: 0.95rem;
+    color: var(--text-dim);
+  }
+  /* doubled selector so the active round's `display: block` (used by the
+     mobile tab view) doesn't win on specificity and break the flex column */
+  .round,
+  .round.round-active {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    position: relative;
+  }
+  .ko-slot {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    padding: 0.3rem 0;
+  }
+  .ko-slot .ko-match {
+    margin-bottom: 0;
+  }
+  /* outgoing: stub from the match plus half the vertical join, meeting its
+     pair partner's half at the slot boundary */
+  .round:not(:last-child) .ko-slot::after {
+    content: "";
+    position: absolute;
+    right: -0.8rem;
+    width: 0.8rem;
+    height: 50%;
+    border-right: 1px solid var(--line);
+  }
+  .round:not(:last-child) .ko-slot-top::after {
+    top: 50%;
+    border-top: 1px solid var(--line);
+    border-top-right-radius: 6px;
+  }
+  .round:not(:last-child) .ko-slot-bottom::after {
+    bottom: 50%;
+    border-bottom: 1px solid var(--line);
+    border-bottom-right-radius: 6px;
+  }
+  /* incoming: stub from the vertical join into the next match */
+  .round + .round .ko-slot::before {
+    content: "";
+    position: absolute;
+    left: -0.8rem;
+    width: 0.8rem;
+    top: 50%;
+    border-top: 1px solid var(--line);
+  }
+  .third-place {
+    position: absolute;
+    inset: auto 0 0;
+    margin-top: 0;
   }
 }
 
