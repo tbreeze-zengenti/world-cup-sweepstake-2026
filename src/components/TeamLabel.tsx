@@ -1,5 +1,6 @@
 import type { SweepstakeEntry, Team } from '../lib/types'
 import { Flag } from './Flag'
+import { TeamName } from '../HighlightContext'
 
 export function TeamLabel({
   team,
@@ -13,7 +14,7 @@ export function TeamLabel({
   return (
     <span className={`team-label${muted ? ' muted' : ''}`}>
       <Flag iso2={team.iso2} />
-      <span className="team-name" data-team={team.slug}>{team.name}</span>
+      <TeamName slug={team.slug}>{team.name}</TeamName>
       {holder && <span className="holder">{holder.name}</span>}
     </span>
   )

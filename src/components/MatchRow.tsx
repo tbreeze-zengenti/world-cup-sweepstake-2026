@@ -1,5 +1,6 @@
 import type { Match, SweepstakeEntry, Team } from '../lib/types'
 import { Flag } from './Flag'
+import { TeamName } from '../HighlightContext'
 
 const dateFmt = new Intl.DateTimeFormat(undefined, { day: 'numeric', month: 'short' })
 const timeFmt = new Intl.DateTimeFormat(undefined, { hour: '2-digit', minute: '2-digit' })
@@ -19,7 +20,7 @@ export function MatchRow({
     const holder = holders?.get(slug)
     return team ? (
       <>
-        <Flag iso2={team.iso2} /> <span className="team-name" data-team={team.slug}>{team.name}</span>
+        <Flag iso2={team.iso2} /> <TeamName slug={team.slug}>{team.name}</TeamName>
         {holder && <span className="holder match-holder">{holder.name}</span>}
       </>
     ) : (

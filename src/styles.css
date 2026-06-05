@@ -104,6 +104,27 @@ body {
   font-family: inherit;
   text-overflow: ellipsis;
 }
+.highlight-picker {
+  position: absolute;
+  top: 0.9rem;
+  left: 0;
+  display: flex;
+  gap: 0.4rem;
+}
+.highlight-picker .theme-select {
+  position: static;
+  max-width: 7rem;
+}
+@media (max-width: 560px) {
+  .highlight-picker {
+    position: static;
+    justify-content: center;
+    margin: 0.6rem auto 0;
+  }
+  .highlight-picker .theme-select {
+    max-width: 9rem;
+  }
+}
 .masthead h1 {
   margin: 0;
   font-size: 1.7rem;
@@ -321,6 +342,27 @@ body {
 }
 .row-leading .col-team {
   box-shadow: inset 3px 0 0 var(--gold);
+}
+
+/* --- person / country highlight -------------------------------------- */
+/* the name chip works everywhere a team name appears, no :has() needed */
+.team-name[data-hl] {
+  background: color-mix(in srgb, var(--accent) 18%, transparent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 45%, transparent);
+  border-radius: 4px;
+  font-weight: 700;
+}
+/* row / side / card-level emphasis — progressive enhancement via :has() */
+.standings tr:has(.team-name[data-hl]),
+.entrant-list li:has(.team-name[data-hl]) {
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+}
+.standings tr:has(.team-name[data-hl]) .col-team {
+  box-shadow: inset 3px 0 0 var(--accent);
+}
+.ko-side:has(.team-name[data-hl]),
+.person-team:has(.team-name[data-hl]) {
+  box-shadow: inset 3px 0 0 var(--accent);
 }
 
 /* hide W/D/L/GF/GA on very narrow screens, keep P GD Pts */

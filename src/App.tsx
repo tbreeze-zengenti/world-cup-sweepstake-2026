@@ -1,10 +1,13 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useTournament } from './useTournament'
+import type { TournamentData } from './lib/types'
 import { GroupsView } from './components/GroupsView'
 import { KnockoutView } from './components/KnockoutView'
 import { PotsView } from './components/PotsView'
 import { PeopleView } from './components/PeopleView'
 import { applyTheme, isBuiltinTheme, loadCustomThemes, THEMES_CHANGED_EVENT, type CustomTheme } from './lib/themes'
+import { highlightSlugs, loadSelection, personOptions, saveSelection, type Selection } from './lib/highlight'
+import { HighlightProvider } from './HighlightContext'
 
 type View = 'groups' | 'knockout' | 'pots' | 'people'
 
@@ -72,6 +75,58 @@ function ThemePicker({
   )
 }
 
+function useHighlightSelection() {
+  const [selection, setSelectionState] = useState<Selection>(loadSelection)
+  const setSelection = (s: Selection) => {
+    setSelectionState(s)
+    saveSelection(s)
+  }
+  return { selection, setSelection }
+}
+
+function HighlightPicker({
+  data,
+  selection,
+  setSelection,
+}: {
+  data: TournamentData
+  selection: Selection
+  setSelection: (s: Selection) => void
+}) {
+  const people = useMemo(() => personOptions(data.sweepstake), [data.sweepstake])
+  const countries = useMemo(() => [...data.teams].sort((a, b) => a.name.localeCompare(b.name)), [data.teams])
+  return (
+    <div className="highlight-picker">
+      <select
+        className="theme-select"
+        aria-label="Highlight a person’s teams"
+        value={selection.kind === 'person' ? selection.name : ''}
+        onChange={(e) => setSelection(e.target.value ? { kind: 'person', name: e.target.value } : { kind: 'none' })}
+      >
+        <option value="">Person…</option>
+        {people.map((p) => (
+          <option key={p} value={p}>
+            {p}
+          </option>
+        ))}
+      </select>
+      <select
+        className="theme-select"
+        aria-label="Highlight a country"
+        value={selection.kind === 'country' ? selection.slug : ''}
+        onChange={(e) => setSelection(e.target.value ? { kind: 'country', slug: e.target.value } : { kind: 'none' })}
+      >
+        <option value="">Country…</option>
+        {countries.map((t) => (
+          <option key={t.slug} value={t.slug}>
+            {t.name}
+          </option>
+        ))}
+      </select>
+    </div>
+  )
+}
+
 const VIEWS: { id: View; label: string }[] = [
   { id: 'groups', label: 'Groups' },
   { id: 'knockout', label: 'Knockout' },
@@ -132,6 +187,11 @@ export default function App() {
   const { data, error, retry } = useTournament()
   const [view, setView] = useState<View>('groups')
   const { theme, setTheme, customThemes } = useTheme()
+  const { selection, setSelection } = useHighlightSelection()
+  const highlighted = useMemo(
+    () => (data ? highlightSlugs(selection, data.sweepstake, data.teams) : new Set<string>()),
+    [selection, data],
+  )
 
   if (error && !data) {
     return (
@@ -156,6 +216,7 @@ export default function App() {
   return (
     <div className="app">
       <header className="masthead">
+        <HighlightPicker data={data} selection={selection} setSelection={setSelection} />
         <ThemePicker theme={theme} setTheme={setTheme} customThemes={customThemes} />
         <h1>
           <span className="masthead-kicker">World Cup 2026</span>
@@ -174,12 +235,14 @@ export default function App() {
 
       <ViewTabs view={view} setView={setView} />
 
-      <main>
-        {view === 'groups' && <GroupsView data={data} />}
-        {view === 'knockout' && <KnockoutView data={data} />}
-        {view === 'pots' && <PotsView data={data} />}
-        {view === 'people' && <PeopleView data={data} />}
-      </main>
+      <HighlightProvider value={highlighted}>
+        <main>
+          {view === 'groups' && <GroupsView data={data} />}
+          {view === 'knockout' && <KnockoutView data={data} />}
+          {view === 'pots' && <PotsView data={data} />}
+          {view === 'people' && <PeopleView data={data} />}
+        </main>
+      </HighlightProvider>
 
       <footer className="footer">
         48 teams · 40 players · £240 in the pots · updated by your friendly organiser

@@ -5,6 +5,7 @@ import { rankConceded } from '../lib/sweepstake2'
 import { rankDiscipline } from '../lib/sweepstake3'
 import { personName } from '../lib/holders'
 import { Flag } from './Flag'
+import { TeamName } from '../HighlightContext'
 import type { Fate } from '../lib/bracket'
 
 const FATE_SHORT: Record<Fate, string> = {
@@ -47,7 +48,7 @@ export function PeopleView({ data }: { data: TournamentData }) {
                 <div key={s.entry.name} className={`person-team fate-${s.fate}`}>
                   <div className="person-team-head">
                     <Flag iso2={s.team.iso2} />
-                    <span className="team-name" data-team={s.team.slug}>{s.team.name}</span>
+                    <TeamName slug={s.team.slug}>{s.team.name}</TeamName>
                     <span className="group-tag">Group {s.team.group}</span>
                     <span className="fate">
                       {FATE_SHORT[s.fate]}

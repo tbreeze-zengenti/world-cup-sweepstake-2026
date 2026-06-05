@@ -5,6 +5,7 @@ import { rankConceded } from '../lib/sweepstake2'
 import { rankDiscipline } from '../lib/sweepstake3'
 import { holdersByTeam } from '../lib/holders'
 import { Flag } from './Flag'
+import { TeamName } from '../HighlightContext'
 import type { Fate } from '../lib/bracket'
 
 const FATE_LABEL: Record<Fate, string> = {
@@ -59,7 +60,7 @@ export function PotsView({ data }: { data: TournamentData }) {
             <tr key={r.slug} className={r.leading ? 'row-leading' : ''}>
               <td className="col-team">
                 <Flag iso2={team.iso2} />
-                <span className="team-name" data-team={team.slug}>{team.name}</span>
+                <TeamName slug={team.slug}>{team.name}</TeamName>
                 <span className="holder">{holders.get(r.slug)?.name}</span>
               </td>
               {r.cells.map((c, i) => (
@@ -92,7 +93,7 @@ export function PotsView({ data }: { data: TournamentData }) {
                 .map((s) => (
                   <li key={s.entry.name} className={`fate-${s.fate}`}>
                     <Flag iso2={s.team.iso2} />
-                    <span className="team-name" data-team={s.team.slug}>{s.team.name}</span>
+                    <TeamName slug={s.team.slug}>{s.team.name}</TeamName>
                     <span className="holder">{s.entry.name}</span>
                     <span className="fate">
                       {FATE_LABEL[s.fate]}

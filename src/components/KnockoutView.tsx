@@ -3,6 +3,7 @@ import type { Match, Stage, TournamentData } from '../lib/types'
 import { buildContext, resolveSide, matchWinner } from '../lib/bracket'
 import { holdersByTeam } from '../lib/holders'
 import { Flag } from './Flag'
+import { TeamName } from '../HighlightContext'
 
 const ROUNDS: { stage: Stage; title: string }[] = [
   { stage: 'r32', title: 'Round of 32' },
@@ -35,7 +36,7 @@ export function KnockoutView({ data }: { data: TournamentData }) {
         {team ? (
           <>
             <Flag iso2={team.iso2} />
-            <span className="team-name" data-team={team.slug}>{team.name}</span>
+            <TeamName slug={team.slug}>{team.name}</TeamName>
             <span className="holder">{holders.get(team.slug)?.name}</span>
           </>
         ) : (

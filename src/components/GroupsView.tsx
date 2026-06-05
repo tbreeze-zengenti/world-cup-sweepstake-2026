@@ -6,6 +6,7 @@ import { rankDiscipline } from '../lib/sweepstake3'
 import { holdersByTeam } from '../lib/holders'
 import { Flag } from './Flag'
 import { MatchRow } from './MatchRow'
+import { TeamName } from '../HighlightContext'
 
 export function GroupsView({ data }: { data: TournamentData }) {
   const { teams, matches, sweepstake } = data
@@ -56,7 +57,7 @@ export function GroupsView({ data }: { data: TournamentData }) {
                         <td className="col-team">
                           <Flag iso2={team.iso2} />
                           <span className="team-stack">
-                            <span className="team-name" data-team={team.slug}>{team.name}</span>
+                            <TeamName slug={team.slug}>{team.name}</TeamName>
                             <span className="holder">{holders.get(r.slug)?.name}</span>
                           </span>
                         </td>
@@ -124,7 +125,7 @@ export function GroupsView({ data }: { data: TournamentData }) {
                     <td className="col-team">
                       <Flag iso2={team.iso2} />
                       <span className="team-stack">
-                        <span className="team-name" data-team={team.slug}>{team.name}</span>
+                        <TeamName slug={team.slug}>{team.name}</TeamName>
                         <span className="holder">{holders.get(r.slug)?.name}</span>
                       </span>
                     </td>
