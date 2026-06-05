@@ -2,6 +2,18 @@
   command = "npm run build"
   publish = "dist"
 
+[functions]
+  directory = "netlify/functions"
+
+# Shadow the static dist/matches.json with the merged live data (force is
+# required so the redirect wins over the file that exists in dist/). The
+# function falls back to the same static data when no overlay exists.
+[[redirects]]
+  from = "/matches.json"
+  to = "/.netlify/functions/matches"
+  status = 200
+  force = true
+
 # SPA fallback — must be last; serves index.html for client-side routes
 [[redirects]]
   from = "/*"

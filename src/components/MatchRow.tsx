@@ -29,8 +29,9 @@ export function MatchRow({
   return (
     <li className={`match-row ${match.status}`}>
       <span className="match-home">{side(match.home)}</span>
-      {match.status === 'finished' && match.score ? (
+      {match.status !== 'scheduled' && match.score ? (
         <span className="match-score">
+          {match.status === 'live' && <span className="live-badge">live</span>}
           {match.score.home}–{match.score.away}
           {match.shootout && (
             <small> ({match.shootout.home}–{match.shootout.away} pens)</small>

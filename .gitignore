@@ -3,4 +3,5 @@ dist
 .vite
 *.local
 .netlify
+deno.lock
 .DS_Store

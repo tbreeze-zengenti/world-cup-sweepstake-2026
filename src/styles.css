@@ -371,6 +371,21 @@ body {
   font-size: 0.78rem;
   text-align: center;
 }
+.live-badge {
+  display: block;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: center;
+  color: #e54;
+  animation: live-pulse 2s ease-in-out infinite;
+}
+@keyframes live-pulse {
+  50% {
+    opacity: 0.4;
+  }
+}
 
 /* --- knockout ----------------------------------------------------------- */
 .round-tabs {

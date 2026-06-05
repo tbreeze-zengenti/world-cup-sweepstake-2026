@@ -38,8 +38,11 @@ export interface Match {
    */
   home: string
   away: string
-  status: 'scheduled' | 'finished'
-  /** Full-time score (after extra time in knockouts). Required when finished. */
+  status: 'scheduled' | 'live' | 'finished'
+  /**
+   * Live or full-time score (after extra time in knockouts).
+   * Required when finished; present on live matches once the API reports goals.
+   */
   score?: { home: number; away: number }
   /** Penalty shootout — knockout only; decides the winner when present. */
   shootout?: { home: number; away: number }

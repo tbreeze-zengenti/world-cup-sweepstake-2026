@@ -42,7 +42,7 @@ export function KnockoutView({ data }: { data: TournamentData }) {
           <span className="ko-tbd">{side.label}</span>
         )}
         <span className="ko-score">
-          {m.status === 'finished' && m.score ? m.score[raw] : ''}
+          {m.status !== 'scheduled' && m.score ? m.score[raw] : ''}
           {m.shootout && <small> ({m.shootout[raw]})</small>}
         </span>
       </div>
