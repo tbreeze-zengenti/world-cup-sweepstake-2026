@@ -90,8 +90,48 @@ fine to fill cards in later. Cards are only needed for the 72 group matches.
 - Pots only settle when **all 72 group matches** are `finished` (UI shows
   Provisional/Final badges).
 
-## Future: live results API (Phase 2)
+## Live data & push alerts
 
-The plan (`docs/plans/`) includes a researched design for swapping manual entry for
-football-data.org's free tier behind a Netlify Function with durable CDN caching.
-Cards would stay manual (not in any free tier).
+Two Netlify functions extend the static site during the tournament:
+
+- **`poll-matches`** (scheduled, every 5 min) — polls football-data.org during match
+  windows and writes a live overlay to Netlify Blobs; `/matches.json` is served merged
+  with it. Needs the `FOOTBALL_DATA_TOKEN` env var. Cards stay manual (not in any free tier).
+- **`push`** (`/api/push`) — opt-in Web Push match alerts (the 🔔 Alerts control in the
+  masthead). Visitors follow one or more participants (or everyone) and get a push at
+  kick-off and full-time (with the score), naming each team and its holder. Alerts arrive
+  within ~5 minutes of the API reporting the change.
+
+### Push alerts setup (one-off)
+
+```bash
+npx web-push generate-vapid-keys
+netlify env:set VAPID_PUBLIC_KEY  "<publicKey>"
+netlify env:set VAPID_PRIVATE_KEY "<privateKey>" --secret
+netlify env:set VAPID_SUBJECT     "mailto:you@example.com"
+```
+
+Notes:
+- The private key must never be committed or logged. **Rotating the keys invalidates
+  every existing subscription** (everyone must re-enable alerts) — only rotate
+  deliberately, e.g. at teardown.
+- iOS (16.4+) only delivers Web Push to sites **added to the Home Screen**; the Alerts
+  panel walks iPhone/iPad users through it.
+- Subscriptions live in the `push-subscriptions` blob store, one blob per browser,
+  keyed by a hash of the push endpoint. There is deliberately no API that lists or
+  returns them, and function logs carry counts/timings only.
+- Each poll that sends logs a line like
+  `push: transitions=2 subs=31 planned=58 sent=58 failed=0 pruned=1 skipped=0 reads=210ms sends=3100ms`
+  — watch `sends` against the 30 s scheduled-function cap; past ~250 subscribers move
+  the fan-out to a background function.
+- Consider enabling Netlify's rate limiting for `/api/push` in the dashboard
+  (Site configuration → Security) — the endpoint is hardened (push-service host
+  allowlist, size caps) but unauthenticated by design.
+
+### Teardown (after the final + ~1 week)
+
+1. Delete the `push-subscriptions` blob store (`netlify blobs:list` / dashboard) —
+   sends stop with the poller anyway, so dead subscriptions never self-prune after
+   the tournament; this is the cleanup of record.
+2. Delete the three `VAPID_*` env vars — neutralises any outstanding browser
+   subscriptions even if a blob lingered.
