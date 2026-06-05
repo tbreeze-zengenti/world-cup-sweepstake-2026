@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useTournament } from './useTournament'
 import type { TournamentData } from './lib/types'
+import { AlertsPanel } from './components/AlertsPanel'
 import { GroupsView } from './components/GroupsView'
 import { KnockoutView } from './components/KnockoutView'
 import { PotsView } from './components/PotsView'
@@ -216,7 +217,10 @@ export default function App() {
   return (
     <div className="app">
       <header className="masthead">
-        <HighlightPicker data={data} selection={selection} setSelection={setSelection} />
+        <div className="masthead-controls">
+          <HighlightPicker data={data} selection={selection} setSelection={setSelection} />
+          <AlertsPanel sweepstake={data.sweepstake} />
+        </div>
         <ThemePicker theme={theme} setTheme={setTheme} customThemes={customThemes} />
         <h1>
           <span className="masthead-kicker">World Cup 2026</span>
