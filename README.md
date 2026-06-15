@@ -10,7 +10,7 @@ knockout bracket, and the three prize pots, all derived from JSON files in this 
 |---|---|---|---|
 | 1 — The big one | £3/entry | £96 winner / £48 runner-up | Overall tournament result |
 | 2 — Leakiest defence | £1/entry | £48 | Most goals **conceded in the group stage**. Tie → fewest goals scored; still tied → split |
-| 3 — Dirtiest team | £1/entry | £48 | Worst **group-stage** disciplinary record: 1 pt/yellow, 3 pts/red, 4 pts/second-yellow send-off. Tie → most reds → fewest goals scored → split |
+| 3 — Dirtiest team | £1/entry | £48 | Worst **group-stage** disciplinary record: 1 pt/yellow, 3 pts/red (second-yellow send-offs score 0). Tie → most reds → fewest goals scored → split |
 
 ## Development
 
@@ -26,7 +26,30 @@ are served at the site root and the app refetches them every 5 minutes while a t
 
 ## Organiser guide — entering results
 
-Everything lives in **`data/matches.json`**. After each matchday:
+Everything lives in **`data/matches.json`**. There are three ways to update it,
+fastest first:
+
+- **`/matchday` (Claude Code skill)** — run it during the tournament and it finds
+  the played-but-unentered group matches, researches each score and the per-team
+  bookings (it knows the direct-red vs second-yellow distinction), applies them,
+  runs the tests, and reports the standings. Best when you want the cards looked
+  up for you.
+- **`node scripts/apply-results.mjs updates.json`** — patch the file from a small
+  JSON payload when you already know the numbers. It touches only the matches you
+  name and enforces the same invariants as the test suite (refuses a finished
+  match with no score, cards on a knockout match, etc.). Payload shape:
+
+  ```json
+  [
+    { "id": "m14", "status": "finished",
+      "score": { "home": 1, "away": 1 },
+      "cards": { "home": { "yellow": 2 }, "away": { "yellow": 1, "red": 1 } } }
+  ]
+  ```
+
+- **By hand** — edit `data/matches.json` directly.
+
+To enter a result by hand:
 
 1. Find the match (they're in chronological order; group matches are `m1`–`m72`,
    knockout `m73`–`m104` using FIFA match numbers).
@@ -55,8 +78,9 @@ Everything lives in **`data/matches.json`**. After each matchday:
 - `yellow` — yellows that did **not** lead to a sending-off (1 pt each)
 - `red` — straight red cards (3 pts each). A straight red after an earlier yellow:
   record both (`yellow: 1, red: 1` = 4 pts)
-- `secondYellow` — players sent off for a **second yellow** (4 pts each, covering their
-  first yellow + the red; don't also count those cards under `yellow`/`red`)
+- `secondYellow` — players sent off for a **second yellow** (0 pts — excluded from the
+  disciplinary score and tiebreaks; record them here so the two bookings aren't
+  double-counted under `yellow`/`red`)
 
 Finished matches without a `cards` entry show a ⚠ warning in the Pot 3 view, so it's
 fine to fill cards in later. Cards are only needed for the 72 group matches.
@@ -84,8 +108,8 @@ fine to fill cards in later. Cards are only needed for the 72 group matches.
 
 ### Scoring rule defaults (agreed by organiser)
 
-- Second-yellow send-off = 4 pts (first yellow + red), tracked separately as `secondYellow`
-  so the rule is a one-line change in `src/lib/sweepstake3.ts` if contested.
+- Second-yellow send-off = 0 pts (excluded from the score and tiebreaks), tracked separately
+  as `secondYellow` so the rule is a one-line change in `src/lib/sweepstake3.ts` if contested.
 - Pot 3 ties: most reds, then fewest goals scored, then split — mirrors Pot 2's spirit.
 - Pots only settle when **all 72 group matches** are `finished` (UI shows
   Provisional/Final badges).
