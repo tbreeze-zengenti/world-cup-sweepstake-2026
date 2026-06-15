@@ -20,7 +20,7 @@ export interface CardCounts {
   yellow?: number
   /** direct reds — 3 pts each */
   red?: number
-  /** players sent off for a second yellow — 4 pts each (1 + 3) */
+  /** players sent off for a second yellow — scores 0 (doesn't count) */
   secondYellow?: number
 }
 

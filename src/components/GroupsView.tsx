@@ -44,7 +44,7 @@ export function GroupsView({ data }: { data: TournamentData }) {
                     <th className="col-wide">GA</th>
                     <th>GD</th>
                     <th>Pts</th>
-                    <th title="Pot 3 — card points (1 per yellow, 3 per red, 4 per second yellow)">🟨</th>
+                    <th title="Pot 3 — card points (1 per yellow, 3 per red; second yellow doesn't count)">🟨</th>
                   </tr>
                 </thead>
                 <tbody>

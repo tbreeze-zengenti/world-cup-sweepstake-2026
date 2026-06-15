@@ -7,7 +7,21 @@
     "venue": "Mexico City",
     "home": "mexico",
     "away": "south-africa",
-    "status": "scheduled"
+    "status": "finished",
+    "score": {
+      "home": 2,
+      "away": 0
+    },
+    "cards": {
+      "home": {
+        "yellow": 1,
+        "red": 1
+      },
+      "away": {
+        "yellow": 2,
+        "red": 2
+      }
+    }
   },
   {
     "id": "m2",
@@ -17,7 +31,17 @@
     "venue": "Guadalajara (Zapopan)",
     "home": "south-korea",
     "away": "czechia",
-    "status": "scheduled"
+    "status": "finished",
+    "score": {
+      "home": 2,
+      "away": 1
+    },
+    "cards": {
+      "home": {
+        "yellow": 1
+      },
+      "away": {}
+    }
   },
   {
     "id": "m3",
@@ -27,7 +51,19 @@
     "venue": "Toronto",
     "home": "canada",
     "away": "bosnia-and-herzegovina",
-    "status": "scheduled"
+    "status": "finished",
+    "score": {
+      "home": 1,
+      "away": 1
+    },
+    "cards": {
+      "home": {
+        "yellow": 2
+      },
+      "away": {
+        "yellow": 3
+      }
+    }
   },
   {
     "id": "m4",
@@ -37,7 +73,19 @@
     "venue": "Los Angeles (Inglewood)",
     "home": "usa",
     "away": "paraguay",
-    "status": "scheduled"
+    "status": "finished",
+    "score": {
+      "home": 4,
+      "away": 1
+    },
+    "cards": {
+      "home": {
+        "yellow": 1
+      },
+      "away": {
+        "yellow": 5
+      }
+    }
   },
   {
     "id": "m5",
@@ -47,7 +95,19 @@
     "venue": "San Francisco Bay Area (Santa Clara)",
     "home": "qatar",
     "away": "switzerland",
-    "status": "scheduled"
+    "status": "finished",
+    "score": {
+      "home": 1,
+      "away": 1
+    },
+    "cards": {
+      "home": {
+        "yellow": 2
+      },
+      "away": {
+        "yellow": 1
+      }
+    }
   },
   {
     "id": "m6",
@@ -57,7 +117,17 @@
     "venue": "New York/New Jersey (East Rutherford)",
     "home": "brazil",
     "away": "morocco",
-    "status": "scheduled"
+    "status": "finished",
+    "score": {
+      "home": 1,
+      "away": 1
+    },
+    "cards": {
+      "home": {
+        "yellow": 2
+      },
+      "away": {}
+    }
   },
   {
     "id": "m7",
@@ -67,7 +137,17 @@
     "venue": "Boston (Foxborough)",
     "home": "haiti",
     "away": "scotland",
-    "status": "scheduled"
+    "status": "finished",
+    "score": {
+      "home": 0,
+      "away": 1
+    },
+    "cards": {
+      "home": {},
+      "away": {
+        "yellow": 2
+      }
+    }
   },
   {
     "id": "m8",
@@ -77,7 +157,17 @@
     "venue": "Vancouver",
     "home": "australia",
     "away": "turkiye",
-    "status": "scheduled"
+    "status": "finished",
+    "score": {
+      "home": 2,
+      "away": 0
+    },
+    "cards": {
+      "home": {},
+      "away": {
+        "yellow": 1
+      }
+    }
   },
   {
     "id": "m9",
@@ -87,7 +177,15 @@
     "venue": "Houston",
     "home": "germany",
     "away": "curacao",
-    "status": "scheduled"
+    "status": "finished",
+    "score": {
+      "home": 7,
+      "away": 1
+    },
+    "cards": {
+      "home": {},
+      "away": {}
+    }
   },
   {
     "id": "m10",
@@ -97,7 +195,17 @@
     "venue": "Dallas (Arlington)",
     "home": "netherlands",
     "away": "japan",
-    "status": "scheduled"
+    "status": "finished",
+    "score": {
+      "home": 2,
+      "away": 2
+    },
+    "cards": {
+      "home": {
+        "yellow": 3
+      },
+      "away": {}
+    }
   },
   {
     "id": "m11",
@@ -107,7 +215,19 @@
     "venue": "Philadelphia",
     "home": "cote-divoire",
     "away": "ecuador",
-    "status": "scheduled"
+    "status": "finished",
+    "score": {
+      "home": 1,
+      "away": 0
+    },
+    "cards": {
+      "home": {
+        "yellow": 3
+      },
+      "away": {
+        "yellow": 1
+      }
+    }
   },
   {
     "id": "m12",
@@ -117,7 +237,17 @@
     "venue": "Monterrey (Guadalupe)",
     "home": "sweden",
     "away": "tunisia",
-    "status": "scheduled"
+    "status": "finished",
+    "score": {
+      "home": 5,
+      "away": 1
+    },
+    "cards": {
+      "home": {},
+      "away": {
+        "yellow": 1
+      }
+    }
   },
   {
     "id": "m13",
@@ -127,7 +257,19 @@
     "venue": "Atlanta",
     "home": "spain",
     "away": "cape-verde",
-    "status": "scheduled"
+    "status": "finished",
+    "score": {
+      "home": 0,
+      "away": 0
+    },
+    "cards": {
+      "home": {
+        "yellow": 1
+      },
+      "away": {
+        "yellow": 2
+      }
+    }
   },
   {
     "id": "m14",

@@ -21,13 +21,13 @@ export interface DisciplineResult {
 
 /**
  * Sweepstake 3 (£48): worst disciplinary record in the group stage.
- * Points: 1 per yellow, 3 per red, 4 per second-yellow send-off (the
- * player's first yellow + the red — recorded as `secondYellow` only).
- * Tiebreak (organiser default, D2): most points → most reds (incl.
- * second-yellow send-offs) → fewest goals scored → split.
+ * Points: 1 per yellow, 3 per red. Second-yellow send-offs don't count —
+ * they score nothing and are excluded from the tiebreak.
+ * Tiebreak (organiser default, D2): most points → most reds → fewest goals
+ * scored → split.
  */
 export const cardPoints = (c: CardCounts): number =>
-  (c.yellow ?? 0) + 3 * (c.red ?? 0) + 4 * (c.secondYellow ?? 0)
+  (c.yellow ?? 0) + 3 * (c.red ?? 0)
 
 export function rankDiscipline(teams: Team[], matches: Match[]): DisciplineResult {
   const tally = new Map<string, Omit<DisciplineRow, 'slug' | 'leading'>>(
@@ -60,7 +60,7 @@ export function rankDiscipline(teams: Team[], matches: Match[]): DisciplineResul
     if (away) away.scored += m.score.away
   }
 
-  const reds = (r: { red: number; secondYellow: number }) => r.red + r.secondYellow
+  const reds = (r: { red: number }) => r.red
   const sorted = [...tally.entries()]
     .map(([slug, t]) => ({ slug, ...t }))
     .sort(

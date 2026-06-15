@@ -97,7 +97,7 @@ export function LeaderboardView({ data }: { data: TournamentData }) {
           Pot 3 — Dirtiest team <span className="pot-money">£{PRIZES.pot3}</span>
         </h3>
         <p className="rules-note">
-          1 pt per yellow, 3 per red, 4 per second-yellow send-off, group stage only. Tiebreak: most
+          1 pt per yellow, 3 per red; a second yellow doesn't count, group stage only. Tiebreak: most
           reds, then fewest goals scored, then split.
           {!started && ' Everyone starts level — first matches 11 June.'}
         </p>

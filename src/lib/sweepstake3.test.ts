@@ -5,11 +5,11 @@ import { match, team } from './fixtures'
 const teams = ['aaa', 'bbb', 'ccc', 'ddd'].map((s) => team(s))
 
 describe('cardPoints', () => {
-  it('scores 1 per yellow, 3 per red, 4 per second-yellow send-off', () => {
+  it('scores 1 per yellow, 3 per red; second yellows do not count', () => {
     expect(cardPoints({ yellow: 2 })).toBe(2)
     expect(cardPoints({ red: 1 })).toBe(3)
-    expect(cardPoints({ secondYellow: 1 })).toBe(4)
-    expect(cardPoints({ yellow: 3, red: 1, secondYellow: 1 })).toBe(10)
+    expect(cardPoints({ secondYellow: 1 })).toBe(0)
+    expect(cardPoints({ yellow: 3, red: 1, secondYellow: 1 })).toBe(6)
     expect(cardPoints({})).toBe(0)
   })
 })

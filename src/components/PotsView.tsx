@@ -149,7 +149,7 @@ export function PotsView({ data }: { data: TournamentData }) {
         </h3>
         <p className="rules-note">
           £1 of each entry. Worst disciplinary record in the <strong>group stage</strong>: 1 pt per
-          yellow, 3 per red, 4 for a second-yellow send-off. Tied? Most reds, then fewest goals
+          yellow, 3 per red; a second yellow doesn't count. Tied? Most reds, then fewest goals
           scored; still tied, the pot is split.
         </p>
         {started ? (
