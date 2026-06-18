@@ -143,9 +143,11 @@
       "away": 1
     },
     "cards": {
-      "home": {},
+      "home": {
+        "yellow": 1
+      },
       "away": {
-        "yellow": 2
+        "yellow": 3
       }
     }
   },
@@ -267,7 +269,7 @@
         "yellow": 1
       },
       "away": {
-        "yellow": 2
+        "yellow": 1
       }
     }
   },
@@ -427,7 +429,7 @@
         "yellow": 3
       },
       "away": {
-        "yellow": 2
+        "yellow": 1
       }
     }
   },
