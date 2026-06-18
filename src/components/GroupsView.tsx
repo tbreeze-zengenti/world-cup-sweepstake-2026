@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import type { TournamentData } from '../lib/types'
 import { computeStandings } from '../lib/standings'
 import { rankThirdPlace } from '../lib/thirdPlace'
+import { rankConceded } from '../lib/sweepstake2'
 import { rankDiscipline } from '../lib/sweepstake3'
 import { holdersByTeam } from '../lib/holders'
 import { Flag } from './Flag'
@@ -14,6 +15,8 @@ export function GroupsView({ data }: { data: TournamentData }) {
   const thirds = useMemo(() => rankThirdPlace(standings), [standings])
   const discipline = useMemo(() => rankDiscipline(teams, matches), [teams, matches])
   const cardsBySlug = useMemo(() => new Map(discipline.rows.map((r) => [r.slug, r])), [discipline])
+  const conceded = useMemo(() => rankConceded(teams, matches), [teams, matches])
+  const concededBySlug = useMemo(() => new Map(conceded.rows.map((r) => [r.slug, r])), [conceded])
   const holders = useMemo(() => holdersByTeam(sweepstake, teams), [sweepstake, teams])
   const teamBySlug = useMemo(() => new Map(teams.map((t) => [t.slug, t])), [teams])
   const [openFixtures, setOpenFixtures] = useState<string | null>(null)
@@ -52,6 +55,7 @@ export function GroupsView({ data }: { data: TournamentData }) {
                     const team = teamBySlug.get(r.slug)!
                     const out = g.complete && (i === 3 || (i === 2 && thirds.final && !thirds.rows.find((t) => t.slug === r.slug)?.qualifies))
                     const cards = cardsBySlug.get(r.slug)
+                    const gaLeading = concededBySlug.get(r.slug)?.leading
                     return (
                       <tr key={r.slug} className={out ? 'row-out' : i < 2 && g.complete ? 'row-through' : ''}>
                         <td className="col-team">
@@ -66,7 +70,12 @@ export function GroupsView({ data }: { data: TournamentData }) {
                         <td className="col-wide">{r.drawn}</td>
                         <td className="col-wide">{r.lost}</td>
                         <td className="col-wide">{r.gf}</td>
-                        <td className="col-wide">{r.ga}</td>
+                        <td
+                          className={`col-wide${gaLeading ? ' col-ga-leading' : ''}`}
+                          title={gaLeading ? 'Pot 2 leader — most goals conceded' : undefined}
+                        >
+                          {r.ga}
+                        </td>
                         <td>{r.gd > 0 ? `+${r.gd}` : r.gd}</td>
                         <td className="col-pts">{r.pts}</td>
                         <td

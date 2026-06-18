@@ -343,6 +343,10 @@ body {
   color: var(--gold);
   font-weight: 700;
 }
+.standings .col-ga-leading {
+  color: var(--gold);
+  font-weight: 700;
+}
 .row-through .col-team {
   box-shadow: inset 3px 0 0 var(--accent);
 }
