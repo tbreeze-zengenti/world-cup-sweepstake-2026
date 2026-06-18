@@ -279,7 +279,19 @@
     "venue": "Seattle",
     "home": "belgium",
     "away": "egypt",
-    "status": "scheduled"
+    "status": "finished",
+    "score": {
+      "home": 1,
+      "away": 1
+    },
+    "cards": {
+      "home": {
+        "yellow": 2
+      },
+      "away": {
+        "yellow": 2
+      }
+    }
   },
   {
     "id": "m15",
@@ -289,7 +301,17 @@
     "venue": "Miami (Miami Gardens)",
     "home": "saudi-arabia",
     "away": "uruguay",
-    "status": "scheduled"
+    "status": "finished",
+    "score": {
+      "home": 1,
+      "away": 1
+    },
+    "cards": {
+      "home": {
+        "yellow": 1
+      },
+      "away": {}
+    }
   },
   {
     "id": "m16",
@@ -299,7 +321,17 @@
     "venue": "Los Angeles (Inglewood)",
     "home": "ir-iran",
     "away": "new-zealand",
-    "status": "scheduled"
+    "status": "finished",
+    "score": {
+      "home": 2,
+      "away": 2
+    },
+    "cards": {
+      "home": {
+        "yellow": 1
+      },
+      "away": {}
+    }
   },
   {
     "id": "m17",
@@ -309,7 +341,15 @@
     "venue": "New York/New Jersey (East Rutherford)",
     "home": "france",
     "away": "senegal",
-    "status": "scheduled"
+    "status": "finished",
+    "score": {
+      "home": 3,
+      "away": 1
+    },
+    "cards": {
+      "home": {},
+      "away": {}
+    }
   },
   {
     "id": "m18",
@@ -319,7 +359,17 @@
     "venue": "Boston (Foxborough)",
     "home": "iraq",
     "away": "norway",
-    "status": "scheduled"
+    "status": "finished",
+    "score": {
+      "home": 1,
+      "away": 4
+    },
+    "cards": {
+      "home": {
+        "yellow": 1
+      },
+      "away": {}
+    }
   },
   {
     "id": "m19",
@@ -329,7 +379,15 @@
     "venue": "Kansas City",
     "home": "argentina",
     "away": "algeria",
-    "status": "scheduled"
+    "status": "finished",
+    "score": {
+      "home": 3,
+      "away": 0
+    },
+    "cards": {
+      "home": {},
+      "away": {}
+    }
   },
   {
     "id": "m20",
@@ -339,7 +397,17 @@
     "venue": "San Francisco Bay Area (Santa Clara)",
     "home": "austria",
     "away": "jordan",
-    "status": "scheduled"
+    "status": "finished",
+    "score": {
+      "home": 3,
+      "away": 1
+    },
+    "cards": {
+      "home": {
+        "yellow": 1
+      },
+      "away": {}
+    }
   },
   {
     "id": "m21",
@@ -349,7 +417,19 @@
     "venue": "Houston",
     "home": "portugal",
     "away": "congo-dr",
-    "status": "scheduled"
+    "status": "finished",
+    "score": {
+      "home": 1,
+      "away": 1
+    },
+    "cards": {
+      "home": {
+        "yellow": 3
+      },
+      "away": {
+        "yellow": 2
+      }
+    }
   },
   {
     "id": "m22",
@@ -359,7 +439,15 @@
     "venue": "Dallas (Arlington)",
     "home": "england",
     "away": "croatia",
-    "status": "scheduled"
+    "status": "finished",
+    "score": {
+      "home": 4,
+      "away": 2
+    },
+    "cards": {
+      "home": {},
+      "away": {}
+    }
   },
   {
     "id": "m23",
@@ -369,7 +457,19 @@
     "venue": "Toronto",
     "home": "ghana",
     "away": "panama",
-    "status": "scheduled"
+    "status": "finished",
+    "score": {
+      "home": 1,
+      "away": 0
+    },
+    "cards": {
+      "home": {
+        "yellow": 1
+      },
+      "away": {
+        "yellow": 2
+      }
+    }
   },
   {
     "id": "m24",
@@ -379,7 +479,19 @@
     "venue": "Mexico City",
     "home": "uzbekistan",
     "away": "colombia",
-    "status": "scheduled"
+    "status": "finished",
+    "score": {
+      "home": 1,
+      "away": 3
+    },
+    "cards": {
+      "home": {
+        "yellow": 1
+      },
+      "away": {
+        "yellow": 1
+      }
+    }
   },
   {
     "id": "m25",
