@@ -39,14 +39,46 @@ they score 3 vs 0. Get this right.
    - Final score (home = first-named team in the fixture).
    - Per team: count of standalone `yellow`, direct `red`, and `secondYellow`
      send-offs — with the distinction above made explicit.
-   - At least two corroborating sources, a confidence rating, and notes on
-     anything uncertain.
-   - Source preference: ESPN match report, FIFA match centre, Sofascore. Treat a
-     single FOX Sports boxscore with caution — its parse has previously
-     mis-rendered a single yellow as a second-yellow send-off. Go with the
-     multi-source consensus, not one outlier.
+   - A confidence rating, and notes on anything uncertain.
+   - **BBC Sport is the primary source** (see below). Corroborate with ESPN match
+     report, FIFA match centre, or Sofascore. Treat a single FOX Sports boxscore
+     with caution — its parse has previously mis-rendered a single yellow as a
+     second-yellow send-off. Go with the multi-source consensus, not one outlier.
    - Only mark a match `finished` if a **confirmed final result** exists. If it
      hasn't kicked off or is still live, leave it `scheduled`.
+
+   ### Using BBC Sport (primary source)
+
+   BBC Sport server-renders the full result and per-player card list, with player
+   names, minutes, and card type — and crucially the line-ups map each player to
+   the right team, which avoids the attribution mistakes generic match reports
+   make (e.g. a 90'+2 card landing on the wrong side). Prefer it over everything
+   else for cards.
+
+   **Access:** `WebFetch` is **blocked** for `bbc.co.uk`, and the Playwright MCP
+   has no browser installed in this environment. Fetch with `curl` using a
+   browser User-Agent instead — that returns the fully rendered HTML:
+
+   ```bash
+   curl -sL -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 \
+   (KHTML, like Gecko) Chrome/120.0 Safari/537.36" "<url>" -o /tmp/bbc.html
+   ```
+
+   **Find the day's games** from the fixtures pages (a bare path gives today;
+   append a date for any day):
+   - `https://www.bbc.co.uk/sport/football/scores-fixtures`
+   - `https://www.bbc.co.uk/sport/football/scores-fixtures/YYYY-MM-DD`
+     (e.g. `.../2026-06-17`)
+
+   Each fixture links to a live/report page like
+   `https://www.bbc.co.uk/sport/football/live/<id>` — its `#Line-ups` view holds
+   the cards. The headline (`"headline":"Portugal 1-1 DR Congo: ..."`) gives the
+   score; cards appear as `CardImage` spans, each with a visually-hidden label
+   `, Yellow Card at NN minutes` (or `Red Card`) and the booked player's name
+   immediately preceding. Parse the HTML (e.g. with a short python/grep pass),
+   group bookings by the line-up's team, and **read the card type literally** —
+   distinguish `Yellow Card`, `Red Card`, and a second yellow. Cross-check the
+   total card count against a second source before recording.
 
 3. **Apply with the helper script — never hand-edit the JSON.** The repeated
    `"status": "scheduled"` lines make manual edits error-prone. Write the
