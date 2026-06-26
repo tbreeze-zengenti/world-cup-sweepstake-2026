@@ -356,6 +356,9 @@ body {
 .row-out .col-team {
   box-shadow: inset 3px 0 0 var(--danger);
 }
+.row-done {
+  opacity: 0.45;
+}
 .row-leading {
   background: rgb(244 197 66 / 10%);
 }

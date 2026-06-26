@@ -30,6 +30,14 @@ export function LeaderboardView({ data }: { data: TournamentData }) {
 
   const started = matches.some((m) => m.status === 'finished')
 
+  // These pots are group-stage only: once a team has played all 3 group games
+  // its total is locked, so fade it out like an eliminated row in the groups view.
+  const GROUP_GAMES = 3
+  const doneSlugs = useMemo(
+    () => new Set(conceded.rows.filter((r) => r.played >= GROUP_GAMES).map((r) => r.slug)),
+    [conceded],
+  )
+
   const concededRows = withRanks(conceded.rows, (r) => `${r.conceded}:${r.scored}`)
   const disciplineRows = withRanks(
     discipline.rows,
@@ -53,8 +61,11 @@ export function LeaderboardView({ data }: { data: TournamentData }) {
       <tbody>
         {rows.map((r) => {
           const team = teamBySlug.get(r.slug)!
+          const cls = [r.leading ? 'row-leading' : '', doneSlugs.has(r.slug) ? 'row-done' : '']
+            .filter(Boolean)
+            .join(' ')
           return (
-            <tr key={r.slug} className={r.leading ? 'row-leading' : ''}>
+            <tr key={r.slug} className={cls}>
               <td>{r.rank}</td>
               <td className="col-team">
                 <Flag iso2={team.iso2} />
