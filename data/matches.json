@@ -1139,7 +1139,19 @@
     "venue": "Philadelphia",
     "home": "curacao",
     "away": "cote-divoire",
-    "status": "scheduled"
+    "status": "finished",
+    "score": {
+      "home": 0,
+      "away": 2
+    },
+    "cards": {
+      "home": {
+        "yellow": 2
+      },
+      "away": {
+        "yellow": 1
+      }
+    }
   },
   {
     "id": "m56",
@@ -1149,7 +1161,19 @@
     "venue": "New York/New Jersey (East Rutherford)",
     "home": "ecuador",
     "away": "germany",
-    "status": "scheduled"
+    "status": "finished",
+    "score": {
+      "home": 2,
+      "away": 1
+    },
+    "cards": {
+      "home": {
+        "yellow": 3
+      },
+      "away": {
+        "yellow": 1
+      }
+    }
   },
   {
     "id": "m57",
@@ -1159,7 +1183,19 @@
     "venue": "Dallas (Arlington)",
     "home": "japan",
     "away": "sweden",
-    "status": "scheduled"
+    "status": "finished",
+    "score": {
+      "home": 1,
+      "away": 1
+    },
+    "cards": {
+      "home": {
+        "yellow": 1
+      },
+      "away": {
+        "yellow": 2
+      }
+    }
   },
   {
     "id": "m58",
@@ -1169,7 +1205,15 @@
     "venue": "Kansas City",
     "home": "tunisia",
     "away": "netherlands",
-    "status": "scheduled"
+    "status": "finished",
+    "score": {
+      "home": 1,
+      "away": 3
+    },
+    "cards": {
+      "home": {},
+      "away": {}
+    }
   },
   {
     "id": "m59",
@@ -1179,7 +1223,17 @@
     "venue": "Los Angeles (Inglewood)",
     "home": "turkiye",
     "away": "usa",
-    "status": "scheduled"
+    "status": "finished",
+    "score": {
+      "home": 3,
+      "away": 2
+    },
+    "cards": {
+      "home": {},
+      "away": {
+        "yellow": 1
+      }
+    }
   },
   {
     "id": "m60",
@@ -1189,7 +1243,19 @@
     "venue": "San Francisco Bay Area (Santa Clara)",
     "home": "paraguay",
     "away": "australia",
-    "status": "scheduled"
+    "status": "finished",
+    "score": {
+      "home": 0,
+      "away": 0
+    },
+    "cards": {
+      "home": {
+        "yellow": 1
+      },
+      "away": {
+        "yellow": 1
+      }
+    }
   },
   {
     "id": "m61",
