@@ -1265,7 +1265,19 @@
     "venue": "Boston (Foxborough)",
     "home": "norway",
     "away": "france",
-    "status": "scheduled"
+    "status": "finished",
+    "score": {
+      "home": 1,
+      "away": 4
+    },
+    "cards": {
+      "home": {
+        "yellow": 1
+      },
+      "away": {
+        "yellow": 1
+      }
+    }
   },
   {
     "id": "m62",
@@ -1275,7 +1287,20 @@
     "venue": "Toronto",
     "home": "senegal",
     "away": "iraq",
-    "status": "scheduled"
+    "status": "finished",
+    "score": {
+      "home": 5,
+      "away": 0
+    },
+    "cards": {
+      "home": {
+        "yellow": 2
+      },
+      "away": {
+        "yellow": 2,
+        "red": 1
+      }
+    }
   },
   {
     "id": "m63",
@@ -1285,7 +1310,20 @@
     "venue": "Guadalajara (Zapopan)",
     "home": "uruguay",
     "away": "spain",
-    "status": "scheduled"
+    "status": "finished",
+    "score": {
+      "home": 0,
+      "away": 1
+    },
+    "cards": {
+      "home": {
+        "yellow": 3,
+        "red": 1
+      },
+      "away": {
+        "yellow": 1
+      }
+    }
   },
   {
     "id": "m64",
@@ -1295,7 +1333,19 @@
     "venue": "Houston",
     "home": "cape-verde",
     "away": "saudi-arabia",
-    "status": "scheduled"
+    "status": "finished",
+    "score": {
+      "home": 0,
+      "away": 0
+    },
+    "cards": {
+      "home": {
+        "yellow": 1
+      },
+      "away": {
+        "yellow": 3
+      }
+    }
   },
   {
     "id": "m65",
@@ -1305,7 +1355,19 @@
     "venue": "Seattle",
     "home": "egypt",
     "away": "ir-iran",
-    "status": "scheduled"
+    "status": "finished",
+    "score": {
+      "home": 1,
+      "away": 1
+    },
+    "cards": {
+      "home": {
+        "yellow": 3
+      },
+      "away": {
+        "yellow": 4
+      }
+    }
   },
   {
     "id": "m66",
@@ -1315,7 +1377,17 @@
     "venue": "Vancouver",
     "home": "new-zealand",
     "away": "belgium",
-    "status": "scheduled"
+    "status": "finished",
+    "score": {
+      "home": 1,
+      "away": 5
+    },
+    "cards": {
+      "home": {
+        "yellow": 2
+      },
+      "away": {}
+    }
   },
   {
     "id": "m67",
@@ -1325,7 +1397,19 @@
     "venue": "New York/New Jersey (East Rutherford)",
     "home": "panama",
     "away": "england",
-    "status": "scheduled"
+    "status": "finished",
+    "score": {
+      "home": 0,
+      "away": 2
+    },
+    "cards": {
+      "home": {
+        "yellow": 2
+      },
+      "away": {
+        "yellow": 1
+      }
+    }
   },
   {
     "id": "m68",
@@ -1335,7 +1419,19 @@
     "venue": "Philadelphia",
     "home": "croatia",
     "away": "ghana",
-    "status": "scheduled"
+    "status": "finished",
+    "score": {
+      "home": 2,
+      "away": 1
+    },
+    "cards": {
+      "home": {
+        "yellow": 1
+      },
+      "away": {
+        "yellow": 1
+      }
+    }
   },
   {
     "id": "m69",
@@ -1345,7 +1441,17 @@
     "venue": "Miami (Miami Gardens)",
     "home": "colombia",
     "away": "portugal",
-    "status": "scheduled"
+    "status": "finished",
+    "score": {
+      "home": 0,
+      "away": 0
+    },
+    "cards": {
+      "home": {
+        "yellow": 1
+      },
+      "away": {}
+    }
   },
   {
     "id": "m70",
@@ -1355,7 +1461,19 @@
     "venue": "Atlanta",
     "home": "congo-dr",
     "away": "uzbekistan",
-    "status": "scheduled"
+    "status": "finished",
+    "score": {
+      "home": 3,
+      "away": 1
+    },
+    "cards": {
+      "home": {
+        "yellow": 3
+      },
+      "away": {
+        "yellow": 2
+      }
+    }
   },
   {
     "id": "m71",
@@ -1365,7 +1483,17 @@
     "venue": "Kansas City",
     "home": "algeria",
     "away": "austria",
-    "status": "scheduled"
+    "status": "finished",
+    "score": {
+      "home": 3,
+      "away": 3
+    },
+    "cards": {
+      "home": {},
+      "away": {
+        "yellow": 1
+      }
+    }
   },
   {
     "id": "m72",
@@ -1375,7 +1503,17 @@
     "venue": "Dallas (Arlington)",
     "home": "jordan",
     "away": "argentina",
-    "status": "scheduled"
+    "status": "finished",
+    "score": {
+      "home": 1,
+      "away": 3
+    },
+    "cards": {
+      "home": {
+        "yellow": 3
+      },
+      "away": {}
+    }
   },
   {
     "id": "m73",
