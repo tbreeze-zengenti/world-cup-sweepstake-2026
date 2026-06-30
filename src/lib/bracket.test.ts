@@ -52,6 +52,21 @@ describe('resolveSide', () => {
     expect(resolveSide('W102', ctx)).toEqual({ label: 'Winner M102' })
   })
 
+  it('treats a drawn (impossible) shootout as undecided, not an away win', () => {
+    const sf: Match = match({
+      id: 'm101',
+      stage: 'sf',
+      group: undefined,
+      home: 'a1',
+      away: 'b1',
+      score: { home: 1, away: 1 },
+      shootout: { home: 4, away: 4 },
+    })
+    const ctx = buildContext(teams, [sf])
+    expect(matchWinner(sf, ctx)).toBeUndefined()
+    expect(resolveSide('W101', ctx)).toEqual({ label: 'Winner M101' })
+  })
+
   it('resolves W refs through placeholder sides (e.g. finished "1A vs 2B" match)', () => {
     const matches = [
       ...groupResults('A', ['a1', 'a2', 'a3', 'a4']),

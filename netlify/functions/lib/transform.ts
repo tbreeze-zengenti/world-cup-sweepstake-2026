@@ -40,7 +40,12 @@ export function fixtureToOverlay(
       overlay.score = swap ? { home: ga, away: gh } : { home: gh, away: ga }
     }
     const pen = fx.score.penalty
-    if (short === 'PEN' && pen.home != null && pen.away != null) {
+    // A shootout can never be a draw. football-data.org occasionally reports an
+    // inconsistent penalties pair in the minutes after a match settles (we've
+    // seen home mirror away, e.g. a real 3-4 served as 4-4), so reject an equal
+    // pair rather than serve impossible data — a later poll picks up the
+    // corrected, decisive score. Mirrors apply-results.mjs / data.test.ts.
+    if (short === 'PEN' && pen.home != null && pen.away != null && pen.home !== pen.away) {
       overlay.shootout = swap
         ? { home: pen.away, away: pen.home }
         : { home: pen.home, away: pen.away }

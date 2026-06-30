@@ -72,7 +72,9 @@ export function resolveSide(raw: string, ctx: BracketContext): ResolvedSide {
 
 function decideSides(match: Match): { winner?: 'home' | 'away' } {
   if (match.status !== 'finished' || !match.score) return {}
-  if (match.shootout) {
+  // A drawn shootout is impossible — treat it as undecided rather than letting
+  // the `>` comparison silently advance the away side.
+  if (match.shootout && match.shootout.home !== match.shootout.away) {
     return { winner: match.shootout.home > match.shootout.away ? 'home' : 'away' }
   }
   if (match.score.home === match.score.away) return {} // group draw

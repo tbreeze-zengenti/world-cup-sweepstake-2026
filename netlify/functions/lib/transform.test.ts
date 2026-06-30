@@ -66,6 +66,14 @@ describe('fixtureToOverlay', () => {
     expect(fixtureToOverlay(aet, koMatch, slugs).shootout).toBeUndefined()
   })
 
+  it('rejects a drawn shootout (impossible) rather than serving it', () => {
+    // football-data.org has served an equal pair transiently for a real 3-4.
+    const fx = apiFixture({ home: 'France', away: 'Senegal', status: 'PEN', goals: [1, 1], penalty: [4, 4] })
+    const overlay = fixtureToOverlay(fx, koMatch, slugs)
+    expect(overlay.shootout).toBeUndefined()
+    expect(overlay.score).toEqual({ home: 1, away: 1 })
+  })
+
   it('leaves sides unset when an API name cannot be resolved', () => {
     const fx = apiFixture({ home: 'Atlantis', away: 'Senegal', status: '1H', goals: [0, 0] })
     expect(fixtureToOverlay(fx, koMatch, slugs)).toEqual({
