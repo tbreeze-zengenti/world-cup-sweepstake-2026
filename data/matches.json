@@ -891,6 +891,10 @@
     "score": {
       "home": 3,
       "away": 2
+    },
+    "cards": {
+      "home": {},
+      "away": {}
     }
   },
   {
